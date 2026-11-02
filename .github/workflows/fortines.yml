@@ -44,7 +44,7 @@ jobs:
           KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
         run: |
           if [ -n "$KEYSTORE_B64" ]; then
-            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/upload.jks"
+            echo "$KEYSTORE_B64" | tr -d ' \r\n\t' | base64 -d > "$RUNNER_TEMP/upload.jks"
             echo "ANDROID_KEYSTORE_PATH=$RUNNER_TEMP/upload.jks" >> "$GITHUB_ENV"
           else
             echo "::warning::Falta el secreto ANDROID_KEYSTORE_BASE64. El AAB sale sin firmar."
@@ -60,23 +60,17 @@ jobs:
           chmod +x gradlew
           ./gradlew --no-daemon assembleDebug bundleRelease
 
-      - name: Renombrar archivos
+      - name: Juntar APK y AAB en una carpeta
         run: |
           mkdir -p salida
           cp android/app/build/outputs/apk/debug/app-debug.apk "salida/fortines-prueba-v${VERSION_NAME}.apk"
           cp android/app/build/outputs/bundle/release/app-release.aab "salida/fortines-v${VERSION_NAME}.aab"
 
-      - name: Guardar APK
+      - name: Guardar APK y AAB juntos
         uses: actions/upload-artifact@v4
         with:
-          name: fortines-apk-v${{ env.VERSION_NAME }}
-          path: fortines-app/salida/*.apk
-
-      - name: Guardar AAB
-        uses: actions/upload-artifact@v4
-        with:
-          name: fortines-aab-v${{ env.VERSION_NAME }}
-          path: fortines-app/salida/*.aab
+          name: fortines-v${{ env.VERSION_NAME }}
+          path: fortines-app/salida/
 
       - name: Publicar versión de prueba
         env:
