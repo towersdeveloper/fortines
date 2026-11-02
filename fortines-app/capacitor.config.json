@@ -1,0 +1,10 @@
+{
+  "appId": "com.fortines.juego",
+  "appName": "Fortines",
+  "webDir": "www",
+  "backgroundColor": "#17120d",
+  "android": {
+    "allowMixedContent": false,
+    "webContentsDebuggingEnabled": false
+  }
+}
