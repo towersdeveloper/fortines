@@ -13,7 +13,7 @@
 @font-face{font-family:"Alegreya Sans";src:url(fonts/alegreya-sans-latin-500-normal.woff2) format("woff2");font-weight:500;font-display:swap}
 @font-face{font-family:"Alegreya Sans";src:url(fonts/alegreya-sans-latin-700-normal.woff2) format("woff2");font-weight:700;font-display:swap}
 @font-face{font-family:"Alegreya Sans";src:url(fonts/alegreya-sans-latin-800-normal.woff2) format("woff2");font-weight:800;font-display:swap}
-:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{padding-top:max(env(safe-area-inset-top,0px),var(--safe-area-inset-top,0px));padding-bottom:max(env(safe-area-inset-bottom,0px),var(--safe-area-inset-bottom,0px))}
 html,body{margin:0;font:14px system-ui,sans-serif;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;overscroll-behavior:none}
 img{max-width:100%}[hidden]{display:none!important}
 </style>
@@ -38,6 +38,7 @@ img{max-width:100%}[hidden]{display:none!important}
   --f-body:"Alegreya Sans","Gill Sans","Trebuchet MS",system-ui,sans-serif;
   color-scheme:dark;
 }
+html{box-sizing:border-box}
 html,body{height:100%}
 [hidden]{display:none!important}
 body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:hidden;
@@ -58,8 +59,8 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 .crown.on.p{background:var(--celeste);border-color:var(--celeste)}
 .crown.on.e{background:var(--rojo);border-color:var(--rojo)}
 #stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
-#cv{display:block;border-radius:6px;box-shadow:0 0 0 1px #4a3826,0 10px 30px rgba(0,0,0,.55);touch-action:none;cursor:crosshair}
-.hud{display:flex;flex-direction:column;gap:6px}
+#cv{display:block;max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 0 0 1px #4a3826,0 10px 30px rgba(0,0,0,.55);touch-action:none;cursor:crosshair}
+.hud{display:flex;flex-direction:column;gap:5px;padding-bottom:4px}
 .moralrow{display:flex;align-items:center;gap:8px}
 .moral{flex:1;position:relative;height:22px;border-radius:3px;background:#120d09;border:1px solid #4a3826;overflow:hidden}
 .moral .fill{position:absolute;inset:0 auto 0 0;width:50%;
@@ -73,7 +74,7 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
   border:1px solid #6b4d18;border-radius:4px;padding:4px 8px;min-height:30px;max-width:130px;cursor:pointer;text-align:center}
 .order:disabled{filter:grayscale(1) brightness(.6);cursor:default}
 .order.active{background:linear-gradient(#f3d98a,#c99a3a);box-shadow:0 0 12px rgba(240,200,90,.6)}
-.hand{display:grid;grid-template-columns:0.62fr repeat(4,1fr);gap:6px;align-items:end}
+.hand{display:grid;grid-template-columns:0.62fr repeat(4,1fr);gap:6px;align-items:end;padding-top:10px}
 .card{position:relative;border:0;padding:0;cursor:pointer;background:none;border-radius:5px;aspect-ratio:4/5;
   transition:transform .12s ease,filter .12s ease;max-width:100%}
 .card canvas{width:100%;height:100%;display:block;border-radius:5px}
@@ -88,7 +89,7 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 .card:focus-visible,.order:focus-visible,.btn:focus-visible,.cmd:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .next{opacity:.85;cursor:default}
 .next .tag{position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.hint{font-size:12px;color:var(--muted);text-align:center;min-height:16px}
+.hint{font-size:12px;color:var(--muted);text-align:center;min-height:15px;line-height:15px}
 
 /* Overlays */
 .overlay{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;z-index:5;
@@ -368,6 +369,7 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 </div>
 <div class="hud">
     <div class="hint" id="hint">Elegí una carta y tocá tu mitad del campo para desplegar.</div>
+    <div class="hand" id="hand"></div>
     <div class="moralrow">
       <div class="moral" aria-label="Moral">
         <div class="fill" id="moralFill"></div>
@@ -377,7 +379,6 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
       <button class="mute" id="muteBtn" aria-label="Activar o silenciar el sonido">&#9834;</button>
       <button class="order" id="orderBtn">Orden</button>
     </div>
-    <div class="hand" id="hand"></div>
   </div>
 </div>
 
@@ -395,29 +396,29 @@ const BALL_SPEED=200; // US: escala visual de las tropas
    ========================================================= */
 const CARDS={
   chasqui:{name:'Chasqui',type:'troop',rar:'Común',cost:1,count:1,hp:220,dmg:50,hs:1.0,spd:80,range:6,r:6,cav:true,tag:'gaucho',
-    look:{mount:'#7a5434',poncho:['#9c3b28','#4a4237'],hat:'gaucho',weapon:'knife'},desc:'Muy rápido y frágil. Distrae y hace ciclar el mazo.'},
+    look:{mount:'#a07a4a',poncho:['#c99a3a','#8a7a4a'],hat:'kerchief',hatC:['#e8dcc0','#b33a2a'],weapon:'knife'},desc:'Muy rápido y frágil. Distrae y hace ciclar el mazo.'},
   milicianos:{name:'Milicianos',type:'troop',rar:'Común',cost:2,count:3,hp:180,dmg:60,hs:1.1,spd:46,range:6,r:5,
-    look:{civil:true,shirt:'#d8cfbb',pants:'#3d3428',hat:'gaucho',weapon:'pike'},desc:'Grupo de 3, cuerpo a cuerpo, débiles.'},
+    look:{civil:true,shirt:'#e2dac6',pants:'#3d3428',hat:'gaucho',hatC:'#6b5236',weapon:'pike'},desc:'Grupo de 3, cuerpo a cuerpo, débiles.'},
   tiradores:{name:'Tiradores',type:'troop',rar:'Común',cost:3,count:2,hp:200,dmg:85,hs:1.3,spd:40,range:92,r:5,ranged:true,
-    look:{uniform:true,hat:'shako',weapon:'musket'},desc:'2 fusileros a distancia, poca vida.'},
+    look:{uniform:true,hat:'shako',weapon:'musket',coat:['#2f4a2c','#5a5a32'],trimC:['#e2c35a','#c7372b'],plumeC:['#3f7a3a','#e8dfc6'],pantsC:'#d8d0bc'},desc:'2 fusileros a distancia, poca vida.'},
   lanceros:{name:'Lanceros',type:'troop',rar:'Común',cost:3,count:3,hp:260,dmg:70,hs:1.2,spd:46,range:14,r:5,antiCav:true,
-    look:{poncho:['#6b3a22','#3d3a33'],hat:'gaucho',weapon:'lance'},desc:'3 lanceros. Doble daño a la caballería.'},
+    look:{poncho:['#6b3a22','#3d3a33'],hat:'gaucho',hatC:'#3a2a1a',weapon:'lance',sash:['#86b8e8','#c7372b']},desc:'3 lanceros. Doble daño a la caballería.'},
   patricios:{name:'Patricios',type:'troop',rar:'Común',cost:4,count:1,hp:1400,dmg:110,hs:1.5,spd:35,range:8,r:8,big:true,
-    look:{uniform:true,hat:'tallshako',weapon:'bayonet'},desc:'Infantería pesada. El tanque barato.'},
+    look:{uniform:true,hat:'tallshako',weapon:'bayonet',coat:['#16224a','#7a1f18'],trimC:['#c23a2c','#f0e6c8'],plumeC:['#f2efe6','#1a1a1a']},desc:'Infantería pesada. El tanque barato.'},
   baqueano:{name:'Baqueano',type:'troop',rar:'Rara',cost:2,count:1,hp:500,dmg:40,hs:1.0,spd:56,range:6,r:6,tag:'gaucho',anywhere:true,
-    look:{poncho:['#8a6a3c','#4c4a42'],hat:'gaucho',weapon:'knife'},desc:'Se despliega en cualquier punto del mapa.'},
+    look:{poncho:['#5f6b3a','#6b5a3a'],hat:'gaucho',hatC:'#7a6a4a',weapon:'knife'},desc:'Se despliega en cualquier punto del mapa.'},
   blandengues:{name:'Blandengues',type:'troop',rar:'Rara',cost:4,count:1,hp:1100,dmg:180,hs:1.6,spd:70,range:7,r:8,cav:true,bOnly:true,tag:'gaucho',
-    look:{mount:'#4b3220',uniform:true,hat:'bicorne',weapon:'lance'},desc:'Caballería que solo ataca estructuras.'},
+    look:{mount:'#4b3220',uniform:true,hat:'bicorne',weapon:'lance',coat:['#8a6a3a','#8a6a3a'],trimC:['#1f2f55','#b33a2a'],beltC:'#3a2716',pantsC:'#e8dfc8'},desc:'Caballería que solo ataca estructuras.'},
   pardos:{name:'Pardos y Morenos',short:'Pardos y Mor.',type:'troop',rar:'Rara',cost:4,count:4,hp:380,dmg:75,hs:1.2,spd:40,range:7,r:5,
-    look:{uniform:true,alt:true,hat:'shako',weapon:'bayonet'},desc:'4 infantes con buena vida.'},
+    look:{uniform:true,hat:'cap',hatC:['#e8e2d0','#e8e2d0'],weapon:'bayonet',coat:['#f0ead8','#efe7d2'],trimC:['#2a3d6b','#9b2c22'],beltC:['#2a3d6b','#9b2c22'],pantsC:'#2a2a36',dark:true},desc:'4 infantes con buena vida.'},
   canon:{name:'Cañón de campaña',short:'Cañón',type:'troop',rar:'Rara',cost:5,count:1,hp:650,dmg:260,hs:3.0,spd:22,range:108,r:9,bOnly:true,ranged:true,proj:'ball',
     look:{cannon:true},desc:'Lento, gran alcance, mucho daño a estructuras.'},
   granaderos:{name:'Granaderos a Caballo',short:'Granaderos',type:'troop',rar:'Épica',cost:5,count:2,hp:750,dmg:160,hs:1.3,spd:66,range:7,r:8,cav:true,charge:true,
     look:{mount:'#2f2118',uniform:true,granadero:true,hat:'morrion',weapon:'saber'},desc:'2 jinetes pesados. La primera carga pega doble.'},
   montoneras:{name:'Montoneras',type:'troop',rar:'Épica',cost:5,count:6,hp:160,dmg:55,hs:1.0,spd:72,range:7,r:6,cav:true,tag:'gaucho',
-    look:{mount:'#8a6038',poncho:['#a2402a','#4a463d'],hat:'gaucho',weapon:'lance'},desc:'Horda de 6 jinetes rápidos.'},
+    look:{mount:'#8a6038',poncho:['#a2402a','#4a463d'],hat:'gaucho',hatC:'#2b2016',weapon:'lance',sash:['#e8dfc8','#c7372b']},desc:'Horda de 6 jinetes rápidos.'},
   tambor:{name:'Tambor de guerra',short:'Tambor',type:'troop',rar:'Épica',cost:3,count:1,hp:450,dmg:0,hs:1,spd:40,range:52,r:6,noAttack:true,
-    look:{uniform:true,hat:'shako',weapon:'drum'},desc:'No ataca. +25% de velocidad de ataque a los cercanos.'},
+    look:{uniform:true,hat:'shako',weapon:'drum',coat:['#a83a2c','#2a3d6b'],trimC:['#f2ecdc','#f2ecdc'],beltC:'#f2ecdc',plumeC:['#86b8e8','#e8c45a']},desc:'No ataca. +25% de velocidad de ataque a los cercanos.'},
   boleadoras:{name:'Boleadoras',type:'spell',rar:'Común',cost:2,radius:42,dmg:40,desc:'Aturde 2,5 s y hace 40 de daño en un área chica.'},
   descarga:{name:'Descarga de fusilería',short:'Descarga',type:'spell',rar:'Común',cost:3,radius:55,dmg:190,desc:'190 de daño en un área mediana (30% a estructuras).'},
   barril:{name:'Barril de pólvora',short:'Barril',type:'spell',rar:'Rara',cost:4,radius:38,dmg:540,desc:'540 de daño en un área chica (40% a estructuras).'},
@@ -427,7 +428,7 @@ const CARDS={
   juana:{name:'Juana Azurduy',short:'Juana Azurduy',type:'troop',rar:'Legendaria',cost:6,count:1,hp:1600,dmg:170,hs:1.2,spd:50,range:7,r:7,legend:true,
     look:{juana:true,weapon:'saber',hat:'plume'},desc:'Llega con 2 guerrilleros. Sin escolta, pega 50% más.'},
   cabral:{name:'Sargento Cabral',short:'Sgto. Cabral',type:'troop',rar:'Legendaria',cost:3,count:1,hp:300,dmg:60,hs:1.2,spd:50,range:6,r:5,legend:true,
-    look:{uniform:true,hat:'bicorne',weapon:'musketShoulder',sergeant:true},desc:'Al morir cura por completo al aliado más cercano.'},
+    look:{uniform:true,granadero:true,hat:'morrion',weapon:'musketShoulder',sergeant:true,pantsC:['#e3ddcc','#e3ddcc']},desc:'Al morir cura por completo al aliado más cercano.'},
   guerrillero:{name:'Guerrillero',type:'troop',count:1,hp:300,dmg:70,hs:1.1,spd:50,range:6,r:5,hidden:true,
     look:{poncho:['#5a3d26','#3c3a35'],hat:'kerchief',weapon:'knife'}}
 };
@@ -653,6 +654,28 @@ const SFX=(()=>{
      mel:[[78,2],[81,1],[78,2],[74,1],[76,2],[73,1],[69,3],[74,2],[78,1],[81,2],[78,1],[79,2],[71,1],[74,3],
       [81,2],[78,1],[74,2],[78,1],[76,2],[79,1],[76,2],[73,1],[69,2],[73,1],[76,2],[79,1],[78,3],[74,3]]}
   ];
+  const BATTLE=[
+    {name:'Marcha de los Andes',step:60/(112*2),bar:4,lead:'flute',bass:[0,2],strum:[1,3],bombo:[0,2],snare:true,loops:2,
+     prog:['C','C','G','C','F','C','G','C','C','F','C','G','C','F','G','C'],
+     mel:[[67,1],[72,1],[72,1],[72,1],[76,2],[72,2],[74,1],[71,1],[67,1],[71,1],[74,2],[67,2],[72,1],[76,1],[79,1],[76,1],[72,2],[67,2],[74,1],[76,1],[74,1],[71,1],[72,4],
+      [67,1],[72,1],[76,1],[79,1],[81,2],[77,2],[76,1],[72,1],[67,1],[72,1],[76,2],[72,2],[79,1],[77,1],[76,1],[74,1],[72,2],[76,2],[74,1],[71,1],[67,1],[71,1],[72,4]]},
+    {name:'Chacarera del Norte',step:60/(76*3),bar:6,lead:'guitar',bass:[0,3],strum:[0,1,3,4],bombo:[0,2,3,5],loops:2,
+     prog:['Am','Am','E','E','Am','Am','E','Am','Dm2','Am','E','Am','Dm2','Am','E','Am'],
+     mel:[[76,1],[76,1],[74,1],[72,2],[71,1],[69,3],[71,1],[72,1],[71,1],[68,2],[69,1],[71,3],[64,1],[69,1],[71,1],[72,2],[74,1],[76,3],[74,1],[72,1],[71,1],[69,3],[64,3],
+      [81,1],[81,1],[79,1],[77,2],[76,1],[74,3],[72,1],[74,1],[76,1],[72,2],[71,1],[69,3],[71,1],[72,1],[74,1],[71,2],[68,1],[69,3],
+      [76,1],[76,1],[74,1],[72,2],[71,1],[69,3],[71,1],[72,1],[71,1],[68,2],[69,1],[71,3],[64,1],[69,1],[71,1],[72,2],[74,1],[76,3],[74,1],[72,1],[71,1],[69,3]]},
+    {name:'Pericón de la Victoria',step:60/(84*3),bar:6,lead:'flute',bass:[0,3],strum:[0,2,3,5],bombo:[0,3],loops:3,
+     prog:['G','D','G','C','G','D','D','G'],
+     mel:[[74,2],[71,1],[74,2],[79,1],[78,2],[76,1],[74,3],[72,2],[76,1],[79,2],[76,1],[74,3],[71,3],
+      [74,2],[79,1],[83,2],[81,1],[79,2],[78,1],[76,3],[78,2],[76,1],[74,2],[78,1],[79,6]]},
+    {name:'Gato de la Montonera',step:60/(92*3),bar:6,lead:'guitar',bass:[0,3],strum:[0,2,3,5],bombo:[0,1,3,4],loops:3,
+     prog:['Dm','A','Dm','A','Gm','Dm','A','Dm'],
+     mel:[[74,1],[76,1],[77,1],[76,2],[74,1],[73,3],[76,3],[77,1],[76,1],[74,1],[76,2],[73,1],[69,3],[69,3],
+      [70,1],[74,1],[79,1],[77,2],[76,1],[74,3],[77,3],[76,1],[74,1],[73,1],[69,2],[73,1],[74,6]]}
+  ];
+  let mSet='menu',bOrder=[0,1,2,3];
+  function snare(t,acc){const s=ac.createBufferSource();s.buffer=nb;const f=ac.createBiquadFilter();f.type='highpass';f.frequency.value=1500;
+    const g=ac.createGain();g.gain.setValueAtTime(acc?.12:.07,t);g.gain.exponentialRampToValueAtTime(.0001,t+.12);s.connect(f);f.connect(g);g.connect(mBus);s.start(t,Math.random());s.stop(t+.14)}
   let mGain=null,mBus=null,mTimer=null,mNext=0,mStep=0,mNote=0,mNoteLeft=0,mOn=false,mTrack=0,mLoop=0,mOrder=[0,1,2,3];
   const mf=n=>440*Math.pow(2,(n-69)/12);
   function pluck(freq,t,dur,g,dest){const o=ac.createOscillator();o.type='triangle';o.frequency.value=freq;const o2=ac.createOscillator();o2.type='sine';o2.frequency.value=freq*2;
@@ -667,35 +690,38 @@ const SFX=(()=>{
     const g=ac.createGain();g.gain.setValueAtTime(acc?.28:.16,t);g.gain.exponentialRampToValueAtTime(.0001,t+.3);o.connect(g);g.connect(mBus);o.start(t);o.stop(t+.32)}
   function schedule(){
     while(mNext<ac.currentTime+.4){
-      const T=TRACKS[mOrder[mTrack]],bars=T.prog.length,total=bars*T.bar;
+      const LIST=mSet==='battle'?BATTLE:TRACKS,ORD=mSet==='battle'?bOrder:mOrder,T=LIST[ORD[mTrack%ORD.length]],bars=T.prog.length,total=bars*T.bar;
       const bar=Math.floor(mStep/T.bar),beat=mStep%T.bar,ch=CHD[T.prog[bar]];
       if(T.bass.includes(beat))pluck(mf(ch[3]),mNext,T.step*3,.2,mBus);
       if(T.strum.includes(beat))ch.slice(0,3).forEach((n,i)=>pluck(mf(n),mNext+i*.018,T.step*2.2,beat===0?.06:.04,mBus));
       if(T.bombo.includes(beat))bombo(mNext,beat===0);
+      if(T.snare){snare(mNext,beat%2===1);snare(mNext+T.step/2,false)}
       if(mNoteLeft<=0){const mm=T.mel[mNote];if(mm){const[n,l]=mm;
         if(T.lead==='flute')flute(mf(n),mNext,l*T.step*1.05,.1,mBus);else pluck(mf(n),mNext,l*T.step*1.4,.12,mBus);mNoteLeft=l;mNote++}}
       mNoteLeft--;mStep++;mNext+=T.step;
       if(mStep>=total){mStep=0;mNote=0;mNoteLeft=0;mLoop++;
-        if(mLoop>=T.loops){mLoop=0;mTrack=(mTrack+1)%mOrder.length;mNext+=T.step*3;
-          if(mTrack===0)mOrder.sort(()=>Math.random()-.5)}}
+        if(mLoop>=T.loops){mLoop=0;mTrack=(mTrack+1)%ORD.length;mNext+=T.step*3;
+          if(mTrack===0)ORD.sort(()=>Math.random()-.5)}}
     }
   }
-  function musicOn(lv){lv=lv==null?.5:lv;if(!ac)return;
+  function musicOn(lv,set){lv=lv==null?.5:lv;set=set||'menu';if(!ac)return;
     if(!mGain){mGain=ac.createGain();mGain.gain.value=0;mGain.connect(master);
       mBus=ac.createGain();mBus.gain.value=1;mBus.connect(mGain);
       const dl=ac.createDelay(1);dl.delayTime.value=.31;const fb=ac.createGain();fb.gain.value=.28;const wet=ac.createGain();wet.gain.value=.22;
       const lp=ac.createBiquadFilter();lp.type='lowpass';lp.frequency.value=2400;
       mBus.connect(dl);dl.connect(lp);lp.connect(fb);fb.connect(dl);lp.connect(wet);wet.connect(mGain);
       mOrder.sort(()=>Math.random()-.5)}
+    if(mOn&&set!==mSet){mSet=set;mTrack=0;mStep=0;mNote=0;mNoteLeft=0;mLoop=0;mNext=ac.currentTime+.4;if(set==='battle')bOrder.sort(()=>Math.random()-.5)}
+    mSet=set;
     if(mOn){mGain.gain.cancelScheduledValues(ac.currentTime);mGain.gain.setValueAtTime(mGain.gain.value,ac.currentTime);mGain.gain.linearRampToValueAtTime(lv,ac.currentTime+1.2);return}mOn=true;mStep=0;mNote=0;mNoteLeft=0;mLoop=0;mNext=ac.currentTime+.15;
     mGain.gain.cancelScheduledValues(ac.currentTime);mGain.gain.setValueAtTime(mGain.gain.value,ac.currentTime);mGain.gain.linearRampToValueAtTime(lv,ac.currentTime+2);
     clearInterval(mTimer);mTimer=setInterval(schedule,100);schedule()}
   function musicOff(){if(!ac||!mGain||!mOn)return;mOn=false;mGain.gain.cancelScheduledValues(ac.currentTime);mGain.gain.setValueAtTime(mGain.gain.value,ac.currentTime);
     mGain.gain.linearRampToValueAtTime(0,ac.currentTime+.8);setTimeout(()=>{if(!mOn)clearInterval(mTimer)},900);
     mTrack=(mTrack+1)%mOrder.length}
-  function trackName(){return TRACKS[mOrder[mTrack]].name}
+  function trackName(){const L=mSet==='battle'?BATTLE:TRACKS,O=mSet==='battle'?bOrder:mOrder;return L[O[mTrack%O.length]].name}
   const api={
-    init,musicOn,musicOff,get trackName(){return mGain?trackName():''},TRACKS_:()=>TRACKS,
+    init,musicOn,musicOff,get trackName(){return mGain?trackName():''},TRACKS_:()=>TRACKS,BATTLE_:()=>BATTLE,
     coin(){if(!can('coin',.08))return;tone(1320,.12,{type:'triangle',gain:.08});tone(1760,.18,{type:'triangle',gain:.07,when:.07})},
     pop(){if(!can('pop',.05))return;tone(520,.08,{type:'sine',gain:.08,f2:900})},
     get muted(){return muted},
@@ -916,6 +942,16 @@ function lookFor(def,side,seed){
   if(L.civil){P.coat=L.shirt;P.pants=L.pants;P.belt=side==='p'?'#86b8e8':'#c7372b';}
   if(L.juana){P.coat=side==='p'?'#2a3d6b':'#8c2b22';P.trim='#d9b24f';P.pants='#3a2a22';P.belt='#d9b24f';P.skin='#c99a76';P.hair=true;}
   if(L.sergeant)P.stripe=true;
+  // vestimenta propia de cada carta: [patriotas, realistas]
+  const pick=v=>Array.isArray(v)?(side==='p'?v[0]:v[1]):v;
+  if(L.coat)P.coat=pick(L.coat);
+  if(L.trimC)P.trim=pick(L.trimC);
+  if(L.pantsC)P.pants=pick(L.pantsC);
+  if(L.beltC!==undefined)P.belt=pick(L.beltC);
+  if(L.plumeC)P.plume=pick(L.plumeC);
+  if(L.sash)P.sash=pick(L.sash);
+  if(L.dark)P.skin=['#7a4f32','#5e3b24','#8d5f40','#6b4429'][Math.floor(seed*4)%4];
+  if(L.hatC)P.hatC=pick(L.hatC);
   return P;
 }
 function legs(c,P,sw){
@@ -934,6 +970,7 @@ function torso(c,P,b){
     c.fillStyle=P.trim;c.fillRect(-3.6,b-11.9,7.2,1.1);c.fillRect(-.45,b-10.8,.9,6.2);
     if(P.belt){c.strokeStyle=P.belt;c.lineWidth=.8;c.beginPath();c.moveTo(-3.3,b-11);c.lineTo(3.3,b-5);c.moveTo(3.3,b-11);c.lineTo(-3.3,b-5);c.stroke()}
     if(P.stripe){c.fillStyle='#e0b94e';c.fillRect(-4,b-9,1.4,.6);c.fillRect(-4,b-8.1,1.4,.6)}
+    if(P.sash){c.fillStyle=P.sash;c.fillRect(-4,b-6.2,8,1.3)}
   }
   c.fillStyle=shade(P.coat,-.15);c.fillRect(-5,b-11.4,1.5,5.2);c.fillRect(3.5,b-11.4,1.5,5.2);
   c.fillStyle=P.skin;c.fillRect(-5,b-6.4,1.5,1.2);c.fillRect(3.5,b-6.4,1.5,1.2);
@@ -956,10 +993,12 @@ function head(c,P,b,f){
     c.beginPath();c.moveTo(-2.6,hy-1.4);c.lineTo(2.6,hy-1.4);c.lineTo(2.2,hy-7.5);c.lineTo(-2.2,hy-7.5);c.closePath();c.fill();
     c.fillStyle='#d9b54f';c.beginPath();c.arc(0,hy-4.2,1.2,0,TAU);c.fill();
     c.fillStyle=P.plume;c.beginPath();c.ellipse(-1.5,hy-8.5,.9,2.4,-.35,0,TAU);c.fill();c.fillStyle='#111';c.fillRect(-3,hy-1.8,6,.9);}
-  else if(H==='gaucho'){c.fillStyle='#2b2016';c.beginPath();c.ellipse(0,hy-1.7,4.6,1.5,0,0,TAU);c.fill();
-    g=c.createLinearGradient(-2,0,2,0);g.addColorStop(0,'#4a3826');g.addColorStop(1,'#1d150e');c.fillStyle=g;c.fillRect(-2,hy-4.6,4,3);
+  else if(H==='gaucho'){const hc=P.hatC||'#4a3826';c.fillStyle=shade(hc,-.4);c.beginPath();c.ellipse(0,hy-1.7,4.6,1.5,0,0,TAU);c.fill();
+    g=c.createLinearGradient(-2,0,2,0);g.addColorStop(0,hc);g.addColorStop(1,shade(hc,-.55));c.fillStyle=g;c.fillRect(-2,hy-4.6,4,3);
     if(P.band){c.fillStyle=P.band;c.fillRect(-2,hy-2.3,4,.7)}}
-  else if(H==='kerchief'){c.fillStyle=P.side==='p'?'#c9c1ae':'#9c2c22';c.beginPath();c.arc(0,hy-.9,2.7,Math.PI,TAU);c.fill();c.fillRect(1.6,hy-1,1.6,2.4);}
+  else if(H==='kerchief'){c.fillStyle=P.hatC||(P.side==='p'?'#c9c1ae':'#9c2c22');c.beginPath();c.arc(0,hy-.9,2.7,Math.PI,TAU);c.fill();c.fillRect(1.6,hy-1,1.6,2.4);}
+  else if(H==='cap'){c.fillStyle=P.hatC||'#1d2a4a';c.beginPath();c.ellipse(0,hy-1.9,3,1.6,0,Math.PI,TAU);c.fill();c.fillRect(-2.9,hy-2.3,5.8,1.2);
+    c.fillStyle='#111';c.fillRect(-3.2,hy-1.6,6.4,.8);c.fillStyle=P.trim;c.fillRect(-2.9,hy-2.6,5.8,.5)}
   else if(H==='plume'){c.fillStyle='#1a1410';c.beginPath();c.ellipse(0,hy-2,4.2,1.5,0,Math.PI,TAU);c.fill();c.fillRect(-4.1,hy-2.1,8.2,.9);
     c.fillStyle='#f2efe6';c.beginPath();c.ellipse(-2.2,hy-4,1,3,-.6,0,TAU);c.fill();c.fillStyle='#d24a39';c.beginPath();c.ellipse(-1,hy-4.2,.7,2.2,-.3,0,TAU);c.fill();}
 }
@@ -1215,7 +1254,7 @@ function newGame(opts){
   document.getElementById('eName').textContent=COMMANDERS[eC].short;document.getElementById('eSide').textContent=FACTIONS[faction];
   document.getElementById('pName').textContent=COMMANDERS[pC].short;
   renderHand();updateOrderBtn();
-  if(!opts.demo){SFX.musicOn(.16);SFX.bugle();G.banner={text:lv?lv.name+' · '+lv.year:'¡A la carga!',side:'n',t:0}}
+  if(!opts.demo){SFX.musicOn(.22,'battle');SFX.bugle();G.banner={text:lv?lv.name+' · '+lv.year:'¡A la carga!',side:'n',t:0}}
 }
 const enemyOf=s=>s==='p'?'e':'p';
 
@@ -1254,7 +1293,7 @@ function spawnUnit(id,side,x,y,extra){
   Object.assign(u,extra||{});u.P=lookFor(d,side,u.seed);
   if(!u.lv)u.lv=side==='p'?cardLv(id):(G.eLvl||1);
   u.hp=u.maxHp=Math.round(d.hp*lvMul(u.lv));
-  if(id==='cabral')u.P.hat='bicorne';
+
   G.units.push(u);return u;
 }
 function playCard(side,idx,x,y){
@@ -1355,7 +1394,7 @@ function killBuilding(b){
 function endGame(winner){
   if(G.phase==='over')return;G.phase='over';G.result=winner;selected=null;
   if(winner==='p')SFX.win();else SFX.lose();
-  setTimeout(showEnd,1300);setTimeout(()=>{if(G&&G.phase==='over')SFX.musicOn(.5)},2600);
+  setTimeout(showEnd,1300);setTimeout(()=>{if(G&&G.phase==='over')SFX.musicOn(.5,'menu')},2600);
 }
 
 /* ---------- partículas ---------- */
@@ -2118,7 +2157,7 @@ function renderShop(){
 }
 function startLevel(i){document.getElementById('app').classList.remove('menuMode');menu.hidden=true;endEl.hidden=true;newGame({level:i});updateCrowns()}
 function startFree(){document.getElementById('app').classList.remove('menuMode');menu.hidden=true;endEl.hidden=true;newGame({});updateCrowns()}
-document.addEventListener('pointerdown',()=>{SFX.init();SFX.musicOn((!menu.hidden||!endEl.hidden)?.5:.16)},{capture:true});
+document.addEventListener('pointerdown',()=>{SFX.init();if(!menu.hidden||!endEl.hidden)SFX.musicOn(.5,'menu');else SFX.musicOn(.22,'battle')},{capture:true});
 document.getElementById('goCamp').addEventListener('click',()=>{SFX.click();renderRoad();showView('vCamp')});
 document.getElementById('goDeck').addEventListener('click',()=>{SFX.click();swapId=null;renderDeck();showView('vDeck')});
 document.getElementById('deckBack').addEventListener('click',()=>{SFX.click();swapId=null;showView('vHome')});
@@ -2176,6 +2215,8 @@ function loop(ts){
   requestAnimationFrame(loop);
 }
 window.addEventListener('resize',()=>{fit()});
+let fitRaf=0,lastStage='';
+if(window.ResizeObserver)new ResizeObserver(()=>{cancelAnimationFrame(fitRaf);fitRaf=requestAnimationFrame(()=>{const r=stage.getBoundingClientRect(),k=Math.round(r.width)+'x'+Math.round(r.height);if(k!==lastStage){lastStage=k;fit()}})}).observe(stage);
 (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(()=>{});
 fit();demoBoard();showView('vHome');requestAnimationFrame(loop);
 window.__fortines={get G(){return G},playCard,useOrder,startLevel,hurt,LEVELS,get PROG(){return PROG}};
