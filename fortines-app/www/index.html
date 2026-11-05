@@ -46,12 +46,12 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 #app{height:100%;max-width:500px;margin:0 auto;display:flex;flex-direction:column;
   padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));
   padding-block:6px;box-sizing:border-box;gap:6px}
-.top{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:38px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:6px;min-height:30px}
 .side-tag{display:flex;flex-direction:column;line-height:1.05;min-width:0}
 .side-tag .lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .side-tag .nm{font-family:var(--f-display);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .side-tag.enemy .nm{color:#e7a08f}
-.clock{font-family:var(--f-display);font-size:24px;font-variant-numeric:tabular-nums;color:var(--parch);
+.clock{font-family:var(--f-display);font-size:20px;font-variant-numeric:tabular-nums;color:var(--parch);
   padding:2px 12px;border:1px solid #4a3826;border-radius:4px;background:#1e1610;min-width:64px;text-align:center}
 .clock.hot{color:#f0b35a;border-color:#7a5320}
 .crowns{display:flex;gap:4px;align-items:center;font-size:12px;color:var(--muted)}
@@ -60,9 +60,10 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 .crown.on.e{background:var(--rojo);border-color:var(--rojo)}
 #stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center}
 #cv{display:block;max-width:100%;max-height:100%;border-radius:6px;box-shadow:0 0 0 1px #4a3826,0 10px 30px rgba(0,0,0,.55);touch-action:none;cursor:crosshair}
-.hud{display:flex;flex-direction:column;gap:5px;padding-bottom:4px}
+.hud{display:flex;flex-direction:column;gap:4px;padding-bottom:6px}
+.moralrow{max-width:430px;width:100%;margin:0 auto;padding:0 3%;box-sizing:border-box}
 .moralrow{display:flex;align-items:center;gap:8px}
-.moral{flex:1;position:relative;height:22px;border-radius:3px;background:#120d09;border:1px solid #4a3826;overflow:hidden}
+.moral{flex:1;position:relative;height:20px;border-radius:3px;background:#120d09;border:1px solid #4a3826;overflow:hidden}
 .moral .fill{position:absolute;inset:0 auto 0 0;width:50%;
   background:linear-gradient(180deg,#9cc6ee 0%,#5e8fc2 55%,#3f6c9f 100%);transition:width .1s linear}
 .moral .ticks{position:absolute;inset:0;display:grid;grid-template-columns:repeat(10,1fr)}
@@ -74,7 +75,7 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
   border:1px solid #6b4d18;border-radius:4px;padding:4px 8px;min-height:30px;max-width:130px;cursor:pointer;text-align:center}
 .order:disabled{filter:grayscale(1) brightness(.6);cursor:default}
 .order.active{background:linear-gradient(#f3d98a,#c99a3a);box-shadow:0 0 12px rgba(240,200,90,.6)}
-.hand{display:grid;grid-template-columns:0.62fr repeat(4,1fr);gap:6px;align-items:end;padding-top:10px}
+.hand{display:grid;grid-template-columns:0.55fr repeat(4,1fr);gap:5px;align-items:end;padding:8px 3% 0;width:100%;max-width:430px;margin:0 auto;box-sizing:border-box}
 .card{position:relative;border:0;padding:0;cursor:pointer;background:none;border-radius:5px;aspect-ratio:4/5;
   transition:transform .12s ease,filter .12s ease;max-width:100%}
 .card canvas{width:100%;height:100%;display:block;border-radius:5px}
@@ -89,7 +90,7 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 .card:focus-visible,.order:focus-visible,.btn:focus-visible,.cmd:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .next{opacity:.85;cursor:default}
 .next .tag{position:absolute;top:-14px;left:0;right:0;text-align:center;font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
-.hint{font-size:12px;color:var(--muted);text-align:center;min-height:15px;line-height:15px}
+.hint{font-size:11px;color:var(--muted);text-align:center;min-height:13px;line-height:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* Overlays */
 .overlay{position:absolute;inset:0;display:flex;align-items:flex-start;justify-content:center;z-index:5;
@@ -230,8 +231,8 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 .swapcard{width:76px;flex:none;animation:float 1.2s ease-in-out infinite}
 .swaptx{display:flex;flex-direction:column;gap:4px;font-size:13px;color:#d9c9a6;min-width:0}
 .swaptx b{color:var(--parch);font-size:15px}.swaptx .btn{font-size:14px;padding:6px 10px;align-self:flex-start}
-.ccard.swap{animation:wiggle .35s ease-in-out infinite alternate}
-@keyframes wiggle{from{transform:rotate(-2.5deg)}to{transform:rotate(2.5deg)}}
+.ccard.swap{animation:wiggle .32s ease-in-out infinite;box-shadow:0 0 0 2px var(--gold),0 0 12px rgba(200,160,74,.6);border-radius:6px}
+@keyframes wiggle{0%{transform:rotate(-5deg) translateY(0)}50%{transform:rotate(5deg) translateY(-3px)}100%{transform:rotate(-5deg) translateY(0)}}
 @keyframes float{50%{transform:translateY(-5px)}}
 .ccard.pop{animation:popin .45s cubic-bezier(.3,1.6,.5,1) both}
 @keyframes popin{from{transform:scale(.4) translateY(30px);opacity:0}to{transform:none;opacity:1}}
@@ -247,8 +248,34 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 .shopitem.free .buy{background:linear-gradient(#9bd77a,#4c8f2e);border-color:#2f5a1a}
 .buy:disabled{filter:grayscale(.8);opacity:.7;cursor:default}
 @media (prefers-reduced-motion:reduce){.ccard.swap,.swapcard,.ccard.pop,.ccard.nudge{animation:none}}
-.menuMode .hand,.menuMode .hint,.menuMode .moral,.menuMode .order{display:none!important}
+.menuMode .hand,.menuMode .hint,.menuMode .moral,.menuMode .order,.menuMode .top{display:none!important}
 .menuMode .moralrow{justify-content:flex-end}
+.lvl{position:absolute;right:6%;bottom:30%;min-width:17px;height:17px;padding:0 3px;box-sizing:border-box;border-radius:9px;display:flex;align-items:center;justify-content:center;
+  font:800 11px/1 var(--f-body);color:#2a1f14;background:radial-gradient(circle at 35% 30%,#fff1b8,#d9a838 60%,#8a6316);border:1.5px solid #4a3510;box-shadow:0 1px 3px rgba(0,0,0,.6)}
+.lvl::before{content:"Nv";font-size:7px;font-weight:700;margin-right:1px;opacity:.75}
+.card .lvl{bottom:32%;right:4%;transform:scale(.9);transform-origin:right bottom}
+.wc{position:absolute;left:6%;right:6%;top:15%;text-align:center;font:800 7px/1.4 var(--f-body);letter-spacing:.06em;text-transform:uppercase;color:#fff;background:rgba(150,40,28,.88);border-radius:2px}
+.card .wc{top:8%}
+#menu{overflow:hidden;align-items:stretch;flex-direction:column}
+.pager{flex:1;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+.pager::-webkit-scrollbar{display:none}
+.page{flex:0 0 100%;width:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow-y:auto;overflow-x:hidden;display:flex}
+.tabbar{display:flex;justify-content:space-around;gap:2px;background:#120d09;border-top:1px solid #4a3826;padding:4px 2px}
+.tabb{flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;background:none;border:0;color:var(--muted);font:600 10px var(--f-body);padding:4px 0;cursor:pointer;border-radius:6px}
+.tabb svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linejoin:round;stroke-linecap:round}
+.tabb.sel{color:var(--ink);background:linear-gradient(#e2c57a,#a8802f)}
+.sublayer{position:absolute;inset:0;z-index:3;background:rgba(14,10,7,.94);overflow-y:auto;display:flex}
+.swipehint{font-size:12px;color:var(--muted);text-align:center;margin:4px 0 0}
+.cmdinfo{display:flex;flex-direction:column;gap:10px}
+.cmdcard{display:grid;grid-template-columns:84px minmax(0,1fr);gap:10px;background:#1f1711;border:1px solid #4a3826;border-radius:6px;padding:8px}
+.cmdcard canvas{width:84px;height:84px;border-radius:4px}
+.cmdcard.e{border-color:#5a2f26}
+.ct{display:flex;flex-direction:column;gap:3px;min-width:0;font-size:13px;color:#d9c9a6}
+.ct b{font-family:var(--f-display);font-weight:400;font-size:16px;color:var(--parch)}
+.ct p{margin:0 0 3px;line-height:1.35}
+.tag{align-self:flex-start;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#9cc7ef;border:1px solid #3c5878;border-radius:3px;padding:1px 4px}
+.tag.gold{color:#2a1f14;background:linear-gradient(#e2c57a,#a8802f);border-color:#6b4d18}
+#pauseScreen{z-index:8}
 @media (max-width:380px){.sheet h1{font-size:36px}.cmd .s{display:none}}
 @media (prefers-reduced-motion:reduce){.card,.moral .fill{transition:none}}
 </style>
@@ -270,18 +297,68 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
     <canvas id="cv" aria-label="Campo de batalla"></canvas>
 
     <div class="overlay" id="menu">
+      <div class="pager" id="pager">
+       <section class="page" data-v="vShop">
+      <div class="sheet" id="vShop">
+        <div class="deckmeta"><h2>Tienda del día</h2><span class="wallet sm"><span class="coin"></span><b class="coins-n">0</b></span></div>
+        <p class="sub small" id="shopTimer"></p>
+        <div class="shopgrid" id="shopGrid"></div>
+        <p class="sub small">Ganás monedas y cartas en cada batalla. Juntá cartas repetidas para subirlas de nivel.</p>
+      </div>
+       </section>
+       <section class="page" data-v="vDeck">
+      <div class="sheet" id="vDeck">
+        <div class="deckmeta"><h2>Tu mazo</h2><span class="wallet sm"><span class="coin"></span><b class="coins-n">0</b></span></div>
+        <div class="tabs" id="deckTabs"></div>
+        <div class="swapbar" id="swapBar" hidden><div class="swapcard"></div><div class="swaptx"><b>Elegí qué carta reemplazar</b><span>Tocá una carta de tu mazo.</span><button class="btn ghost" id="swapCancel">Cancelar</button></div></div>
+        <div class="grid4" id="deckGrid"></div>
+        <div class="deckmeta" id="deckMeta"></div>
+        <p class="warn" id="deckWarn" hidden></p>
+        <div class="deckmeta"><h2>Resto de las cartas</h2><span id="colCount"></span></div>
+        <div class="chips" id="colChips"></div>
+        <div class="grid4" id="colGrid"></div>
+        <h2 id="lockHead">Por desbloquear en la campaña</h2>
+        <div class="grid4" id="lockGrid"></div>
+      </div>
+       </section>
+       <section class="page" data-v="vHome">
       <div class="sheet" id="vHome">
         <h1>Fortines</h1>
-        <p class="sub">Patriotas contra realistas · prototipo v0.3</p>
+        <p class="sub">Patriotas contra realistas · prototipo v0.4</p>
         <div class="wallet"><span class="coin"></span><b class="coins-n">0</b> monedas</div>
         <div class="stack">
           <button class="btn" id="goCamp">Campaña</button>
-          <button class="btn ghost" id="goDeck">Mazo y colección</button>
-          <button class="btn ghost" id="goShop">Tienda del día</button>
           <button class="btn ghost" id="goFree">Batalla libre</button>
-          <button class="btn ghost" id="goHelp">Cómo se juega</button>
+        </div>
+        <p class="swipehint">Deslizá hacia los costados para ir a la tienda, tu mazo y los comandantes</p>
+      </div>
+       </section>
+       <section class="page" data-v="vCmds">
+      <div class="sheet" id="vCmds">
+        <h2>Comandantes y sus órdenes</h2>
+        <p class="sub small">Cada comandante tiene una habilidad que funciona toda la partida y una orden especial que usás una sola vez, con el botón dorado al lado de la moral.</p>
+        <div id="cmdInfo" class="cmdinfo"></div>
+      </div>
+       </section>
+       <section class="page" data-v="vHelp">
+      <div class="sheet" id="vHelp">
+        <h2>Cómo se juega</h2>
+        <div class="detail help">
+          <p><b>Objetivo.</b> Derribá la Comandancia enemiga y ganás al toque. Si se termina el tiempo (3 minutos), gana quien haya tirado más fortines. Si hay empate, viene 1 minuto de muerte súbita.</p>
+          <p><b>La moral.</b> Es la energía para jugar cartas: la barra azul de abajo, de 0 a 10. Arranca en 5 y sube 1 punto cada 2,8 segundos. En el último minuto sube al doble. Cada carta cuesta lo que marca su sello rojo.</p>
+          <p><b>Desplegar.</b> Tocá una carta y después tu mitad del campo, o arrastrala. Las tropas y estructuras van solo en tu zona. Los hechizos y el Baqueano van a cualquier lado.</p>
+          <p><b>La orden del comandante.</b> Es el botón dorado al lado de la moral. Cada comandante tiene una orden especial que se usa una sola vez por partida. Por ejemplo, el Cruce de los Andes de San Martín te deja desplegar hasta la orilla del río durante 10 segundos.</p>
+          <p><b>Fortines y Comandancia.</b> Los fortines disparan solos a todo lo que se acerca. La Comandancia está en guardia y solo dispara si la atacan o si cae uno de tus fortines.</p>
+          <p><b>Las cartas.</b> El marco indica la rareza: madera para Común, acero azul para Rara, violeta para Épica y dorado para Legendaria. La franja del nombre indica el tipo: verde para tropas, roja para hechizos y ocre para estructuras. Debajo de la ilustración ves la vida y el daño.</p>
+          <p><b>Desbloqueos.</b> Arrancás con 11 cartas. El resto se gana ganando batallas de la campaña.</p>
+          <p><b>Niveles.</b> Cada batalla te da monedas y cartas repetidas. Con suficientes cartas y monedas subís una carta de nivel: cada nivel le suma 10% de vida y daño. Hay 5 niveles, y cada uno pide más cartas.</p>
+          <p><b>Tienda del día.</b> Todos los días hay 6 artículos nuevos: uno gratis y cinco que se compran con monedas.</p>
         </div>
       </div>
+       </section>
+      </div>
+      <nav class="tabbar" id="tabbar"><button class="tabb" data-v="vShop" id="tab-vShop"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h18l-1.5 12h-15z M8 8a4 4 0 0 1 8 0"/></svg><span>Tienda</span></button><button class="tabb" data-v="vDeck" id="tab-vDeck"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 4h9l3 3v13H6z M9 10h6 M9 14h6"/></svg><span>Mazo</span></button><button class="tabb" data-v="vHome" id="tab-vHome"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20 12 4l8 16z M9 14h6"/></svg><span>Batalla</span></button><button class="tabb" data-v="vCmds" id="tab-vCmds"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2 8 12.7 4 8.8l5.5-.8z"/></svg><span>Comandantes</span></button><button class="tabb" data-v="vHelp" id="tab-vHelp"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.6.3-1 .8-1 1.5V14 M12 17.2v.1"/></svg><span>Ayuda</span></button></nav>
+      <div class="sublayer" id="sublayer" hidden>
       <div class="sheet" id="vCamp" hidden>
         <h2>El camino de la Independencia</h2>
         <p class="sub small">Ganá cada batalla para seguir subiendo. Los laureles marcan los fortines que derribaste.</p>
@@ -297,48 +374,21 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
         <p class="mod" id="bMod"></p>
         <div class="row"><button class="btn" id="bGo">A la carga</button><button class="btn ghost" id="bBack">Al camino</button></div>
       </div>
-      <div class="sheet" id="vDeck" hidden>
-        <div class="deckmeta"><h2>Tu mazo</h2><span class="wallet sm"><span class="coin"></span><b class="coins-n">0</b></span></div>
-        <div class="tabs" id="deckTabs"></div>
-        <div class="swapbar" id="swapBar" hidden><div class="swapcard"></div><div class="swaptx"><b>Elegí qué carta reemplazar</b><span>Tocá una carta de tu mazo.</span><button class="btn ghost" id="swapCancel">Cancelar</button></div></div>
-        <div class="grid4" id="deckGrid"></div>
-        <div class="deckmeta" id="deckMeta"></div>
-        <p class="warn" id="deckWarn" hidden></p>
-        <div class="deckmeta"><h2>Resto de las cartas</h2><span id="colCount"></span></div>
-        <div class="chips" id="colChips"></div>
-        <div class="grid4" id="colGrid"></div>
-        <h2 id="lockHead">Por desbloquear en la campaña</h2>
-        <div class="grid4" id="lockGrid"></div>
-        <button class="btn ghost" id="deckBack">Volver</button>
-      </div>
-      <div class="sheet" id="vShop" hidden>
-        <div class="deckmeta"><h2>Tienda del día</h2><span class="wallet sm"><span class="coin"></span><b class="coins-n">0</b></span></div>
-        <p class="sub small" id="shopTimer"></p>
-        <div class="shopgrid" id="shopGrid"></div>
-        <p class="sub small">Ganás monedas y cartas en cada batalla. Juntá cartas repetidas para subirlas de nivel.</p>
-        <button class="btn ghost" id="shopBack">Volver</button>
-      </div>
-      <div class="sheet" id="vHelp" hidden>
-        <h2>Cómo se juega</h2>
-        <div class="detail help">
-          <p><b>Objetivo.</b> Derribá la Comandancia enemiga y ganás al toque. Si se termina el tiempo (3 minutos), gana quien haya tirado más fortines. Si hay empate, viene 1 minuto de muerte súbita.</p>
-          <p><b>La moral.</b> Es la energía para jugar cartas: la barra azul de abajo, de 0 a 10. Arranca en 5 y sube 1 punto cada 2,8 segundos. En el último minuto sube al doble. Cada carta cuesta lo que marca su sello rojo.</p>
-          <p><b>Desplegar.</b> Tocá una carta y después tu mitad del campo, o arrastrala. Las tropas y estructuras van solo en tu zona. Los hechizos y el Baqueano van a cualquier lado.</p>
-          <p><b>La orden del comandante.</b> Es el botón dorado al lado de la moral. Cada comandante tiene una orden especial que se usa una sola vez por partida. Por ejemplo, el Cruce de los Andes de San Martín te deja desplegar hasta la orilla del río durante 10 segundos.</p>
-          <p><b>Fortines y Comandancia.</b> Los fortines disparan solos a todo lo que se acerca. La Comandancia está en guardia y solo dispara si la atacan o si cae uno de tus fortines.</p>
-          <p><b>Las cartas.</b> El marco indica la rareza: madera para Común, acero azul para Rara, violeta para Épica y dorado para Legendaria. La franja del nombre indica el tipo: verde para tropas, roja para hechizos y ocre para estructuras. Debajo de la ilustración ves la vida y el daño.</p>
-          <p><b>Desbloqueos.</b> Arrancás con 11 cartas. El resto se gana ganando batallas de la campaña.</p>
-          <p><b>Niveles.</b> Cada batalla te da monedas y cartas repetidas. Con suficientes cartas y monedas subís una carta de nivel: cada nivel le suma 10% de vida y daño. Hay 5 niveles, y cada uno pide más cartas.</p>
-          <p><b>Tienda del día.</b> Todos los días hay 6 artículos nuevos: uno gratis y cinco que se compran con monedas.</p>
-        </div>
-        <button class="btn ghost" id="helpBack">Volver</button>
-      </div>
       <div class="sheet" id="vFree" hidden>
         <h2>Elegí tu comandante</h2>
         <div class="cmds" id="cmdList"></div>
         <div class="detail" id="cmdDetail"></div>
         <button class="btn" id="startBtn">A la carga</button>
         <button class="btn ghost" id="freeBack">Volver</button>
+      </div>
+      </div>
+    </div>
+
+    <div class="overlay" id="pauseScreen" hidden>
+      <div class="sheet">
+        <p class="result draw">Pausa</p>
+        <p class="sub">¿Querés abandonar la batalla? Cuenta como derrota.</p>
+        <div class="row"><button class="btn" id="resumeBtn">Seguir peleando</button><button class="btn ghost" id="quitBtn">Abandonar</button></div>
       </div>
     </div>
 
@@ -388,7 +438,7 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
    CONSTANTES DEL CAMPO
    ========================================================= */
 const W=360,H=600,RT=282,RB=318,RY=300,FORDS=[80,280],FW=46,TAU=Math.PI*2;
-const SIGHT=88,US=1.32,SPEED=.7; // SPEED: ritmo general de marcha
+const SIGHT=118,ALT=42,US=1.32,SPEED=.7; // SPEED: ritmo general de marcha
 const BALL_SPEED=200; // US: escala visual de las tropas
 
 /* =========================================================
@@ -424,7 +474,16 @@ const CARDS={
   barril:{name:'Barril de pólvora',short:'Barril',type:'spell',rar:'Rara',cost:4,radius:38,dmg:540,desc:'540 de daño en un área chica (40% a estructuras).'},
   arenga:{name:'Arenga',type:'spell',rar:'Épica',cost:3,radius:60,desc:'Cura el 30% de la vida y da +35% de daño por 6 s.'},
   trinchera:{name:'Trinchera',type:'build',rar:'Común',cost:3,hp:900,life:30,r:15,desc:'Bloquea y absorbe daño. Dura 30 s.'},
-  pulperia:{name:'Pulpería',type:'build',rar:'Rara',cost:5,hp:700,life:40,r:15,desc:'Genera un miliciano cada 6 s.'},
+  pulperia:{name:'Pulpería',type:'build',rar:'Rara',cost:5,hp:600,life:30,r:15,desc:'Genera un miliciano cada 7 s, durante 30 s.'},
+  cazadores:{name:'Cazadores',type:'troop',rar:'Rara',cost:4,count:1,hp:420,dmg:210,hs:2.2,spd:38,range:125,r:5,ranged:true,
+    look:{uniform:true,hat:'shako',weapon:'musket',coat:['#24331f','#4a4a2a'],trimC:['#9a2a22','#e8c45a'],plumeC:['#1a1a1a','#e8dfc6'],pantsC:['#3a3a2a','#d8d0bc'],beltC:'#2a1f14'},desc:'Tirador de élite: disparo lento pero muy fuerte, desde muy lejos. Le pega al Globo.'},
+  husares:{name:'Húsares de Pueyrredón',short:'Húsares',type:'troop',rar:'Épica',cost:5,count:2,hp:520,dmg:90,hs:1.1,spd:62,range:80,r:8,cav:true,ranged:true,
+    look:{mount:'#6b4a2a',uniform:true,hat:'tallshako',weapon:'musket',coat:['#7a1f22','#1f3a5a'],trimC:['#e8c45a','#e8c45a'],beltC:'#e8c45a',plumeC:['#f2efe6','#c7372b'],pantsC:'#e8dfc8'},desc:'2 jinetes con carabina: disparan montados, a distancia. Le pegan al Globo.'},
+  metralla:{name:'Cañón de metralla',short:'Metralla',type:'troop',rar:'Épica',cost:5,count:1,hp:600,dmg:150,hs:2.4,spd:22,range:92,r:9,ranged:true,proj:'grape',splash:30,groundOnly:true,
+    look:{cannon:true,grape:true},desc:'Dispara metralla contra tropas: daño en área. No le pega a edificios ni al Globo.'},
+  bateria:{name:'Batería',type:'build',rar:'Rara',cost:4,hp:800,life:35,r:13,range:105,dmg:70,hs:1.0,desc:'Parapeto con tiradores: dispara a tropas y globos durante 35 s.'},
+  globo:{name:'Globo aerostático',short:'Globo',type:'troop',rar:'Épica',cost:5,count:1,hp:950,dmg:420,hs:2.6,spd:30,range:3,r:9,air:true,bOnly:true,
+    look:{balloon:true},desc:'Vuela directo a los edificios y les tira bombas. Solo le pegan las tropas que disparan, los fortines y la Batería.'},
   juana:{name:'Juana Azurduy',short:'Juana Azurduy',type:'troop',rar:'Legendaria',cost:6,count:1,hp:1600,dmg:170,hs:1.2,spd:50,range:7,r:7,legend:true,
     look:{juana:true,weapon:'saber',hat:'plume'},desc:'Llega con 2 guerrilleros. Sin escolta, pega 50% más.'},
   cabral:{name:'Sargento Cabral',short:'Sgto. Cabral',type:'troop',rar:'Legendaria',cost:3,count:1,hp:300,dmg:60,hs:1.2,spd:50,range:6,r:5,legend:true,
@@ -453,7 +512,12 @@ const TIPS={
   trinchera:['Desviar a Blandengues y caballería','Cañón y Barril'],
   pulperia:['Presión constante y defensa','Baqueano y Barril'],
   juana:['Romper la línea enemiga','Boleadoras y grupos de Pardos'],
-  cabral:['Salvar a una tropa clave','Descarga: cae enseguida']
+  cabral:['Salvar a una tropa clave','Descarga: cae enseguida'],
+  cazadores:['Bajar al Globo y a tropas lentas desde lejos','Caballería y Chasqui'],
+  husares:['Hostigar y bajar Globos rápido','Lanceros y Descarga'],
+  metralla:['Barrer grupos de Milicianos, Montoneras y Pardos','Globo y caballería que lo flanquea'],
+  bateria:['Defender contra Globos y cargas','Cañón y Barril'],
+  globo:['Romper fortines si el rival no tiene tiradores','Tiradores, Cazadores, Batería y Descarga']
 };
 const HIST={
   chasqui:'Mensajeros que llevaban noticias y órdenes de posta en posta. Venían del sistema de correos del Imperio inca y se siguieron usando en la época colonial.',
@@ -475,6 +539,11 @@ const HIST={
   trinchera:'Zanjas, parapetos y barricadas para cubrirse del fuego. En la Defensa de 1807, los porteños se atrincheraron en calles y azoteas.',
   pulperia:'El almacén y bar del campo, donde se juntaban los gauchos. También era un lugar de noticias y de reclutamiento.',
   juana:'Juana Azurduy peleó en el Alto Perú junto a su esposo, Manuel Ascencio Padilla. Fue nombrada teniente coronela en 1816 y, en 2009, Argentina la ascendió a generala.',
+  cazadores:'Infantería ligera de tiradores elegidos. Peleaban dispersos, aprovechando el terreno, y apuntaban a los oficiales enemigos.',
+  husares:'Juan Martín de Pueyrredón organizó un cuerpo de Húsares en 1806 para enfrentar a los ingleses. Era caballería ligera, con sable y carabina.',
+  metralla:'La metralla era una lata o bolsa llena de balas de plomo que el cañón disparaba de cerca, como una escopeta gigante. Contra tropas en fila era devastadora.',
+  bateria:'Una batería era un grupo de cañones o tiradores detrás de un parapeto de tierra y cestones. En la Vuelta de Obligado, en 1845, se armaron baterías sobre la costa del Paraná.',
+  globo:'Los globos de aire caliente existen desde 1783 y se usaron para observar al enemigo desde el aire. En la Guerra del Paraguay, en 1867, el ejército aliado usó globos para espiar las líneas. Que bombardee es una licencia del juego.',
   cabral:'Juan Bautista Cabral, granadero correntino. Según el relato tradicional, en San Lorenzo salvó a San Martín cuando su caballo cayó encima de él, y murió por las heridas.'
 };
 const COMMANDERS={
@@ -546,7 +615,7 @@ const LEVELS=[
     diff:{regen:.74,think:1.5,hpMul:.8,spellTh:5,reserve:1.4,startMoral:4}},
   {id:'defensa',war:'Invasiones Inglesas',name:'Defensa',year:1807,place:'Calles de Buenos Aires',theme:'pampa',faction:'uk',pCmd:'liniers',eCmd:'whitelocke',
     brief:'Vuelven los británicos con un ejército mucho más grande. La ciudad entera se defiende desde las azoteas.',
-    mod:'Whitelocke ataca con mucha infantería.',reward:['pulperia'],
+    mod:'Whitelocke ataca con mucha infantería.',reward:['pulperia','husares'],
     eDeck:['patricios','pardos','tiradores','canon','milicianos','descarga','trinchera','lanceros'],
     diff:{regen:.82,think:1.35,hpMul:.88,spellTh:4.6,reserve:1.3,startMoral:5}},
   {id:'suipacha',war:'Guerra de la Independencia',name:'Suipacha',year:1810,place:'Alto Perú',theme:'norte',faction:'esp',pCmd:'guemes',eCmd:'cordoba',
@@ -566,31 +635,31 @@ const LEVELS=[
     diff:{regen:.97,think:1.05,hpMul:1,spellTh:3.7,reserve:1.05,startMoral:7}},
   {id:'salta',war:'Guerra de la Independencia',name:'Salta',year:1813,place:'Campo de Castañares',theme:'norte',faction:'esp',pCmd:'belgrano',eCmd:'tristan',
     brief:'Tras Tucumán, Belgrano persigue a Tristán hasta Salta. Si cae su Comandancia, el norte queda libre.',
-    mod:'Los realistas usan más hechizos.',reward:['tambor'],
-    eDeck:['patricios','tiradores','canon','pulperia','descarga','barril','pardos','lanceros'],
+    mod:'Los realistas usan más hechizos.',reward:['tambor','bateria'],
+    eDeck:['patricios','tiradores','canon','bateria','descarga','barril','pardos','cazadores'],
     diff:{regen:1,think:1,hpMul:1,spellTh:3.4,reserve:1,startMoral:5}},
   {id:'chacabuco',war:'Guerra de la Independencia',name:'Chacabuco',year:1817,place:'Cuesta de Chacabuco, Chile',theme:'andes',faction:'esp',pCmd:'sanmartin',eCmd:'maroto',
     brief:'Después de cruzar los Andes, el Ejército de los Andes cae sobre las tropas de Maroto al pie de la cordillera.',
-    mod:'Maroto ataca con caballería pesada.',reward:['montoneras'],
-    eDeck:['granaderos','lanceros','tiradores','canon','montoneras','boleadoras','descarga','patricios'],
+    mod:'Maroto ataca con caballería pesada.',reward:['montoneras','globo'],
+    eDeck:['granaderos','lanceros','tiradores','husares','montoneras','boleadoras','descarga','patricios'],
     diff:{regen:1.05,think:.9,hpMul:1.05,spellTh:3.2,reserve:.95,startMoral:5}},
   {id:'guerragaucha',war:'Guerra de la Independencia',name:'Guerra Gaucha',year:1817,place:'Quebrada de Humahuaca y Salta',theme:'norte',faction:'esp',pCmd:'guemes',eCmd:'laserna',
     brief:'La Serna invade el norte con un ejército veterano. Güemes y sus gauchos lo desgastan sin darle respiro.',
     mod:'La Serna trae caballería y artillería.',reward:['juana'],
-    eDeck:['granaderos','canon','tiradores','patricios','barril','descarga','pardos','tambor'],
+    eDeck:['granaderos','metralla','tiradores','patricios','barril','descarga','pardos','globo'],
     diff:{regen:1.1,think:.85,hpMul:1.1,spellTh:3.1,reserve:.9,startMoral:6}},
   {id:'maipu',war:'Guerra de la Independencia',name:'Maipú',year:1818,place:'Llano de Maipú, Chile',theme:'andes',faction:'esp',pCmd:'sanmartin',eCmd:'osorio',
     brief:'La batalla decisiva por la independencia de Chile. Osorio viene envalentonado tras Cancha Rayada.',
-    mod:'Fortines realistas reforzados: +20% de vida.',reward:[],
-    eDeck:['granaderos','patricios','canon','pardos','barril','descarga','arenga','tambor'],
+    mod:'Fortines realistas reforzados: +20% de vida.',reward:['metralla'],
+    eDeck:['granaderos','patricios','globo','pardos','barril','descarga','cazadores','tambor'],
     diff:{regen:1.15,think:.78,hpMul:1.2,spellTh:3,reserve:.85,startMoral:6}},
   {id:'ituzaingo',war:'Guerra del Brasil',name:'Ituzaingó',year:1827,place:'Paso del Rosario, Río Grande del Sur',theme:'pampa',faction:'bra',pCmd:'alvear',eCmd:'barbacena',
     brief:'La gran batalla de la guerra contra el Imperio del Brasil. Alvear lanza su caballería sobre el ejército imperial.',
     mod:'Batalla final: el rival junta moral más rápido.',reward:[],
-    eDeck:['patricios','pardos','canon','granaderos','barril','descarga','arenga','lanceros'],
+    eDeck:['patricios','husares','globo','granaderos','barril','descarga','metralla','bateria'],
     diff:{regen:1.22,think:.72,hpMul:1.2,spellTh:2.9,reserve:.8,startMoral:6}}
 ];
-const STARTER=['chasqui','milicianos','tiradores','lanceros','patricios','boleadoras','descarga','trinchera','baqueano','pardos','canon'];
+const STARTER=['chasqui','milicianos','tiradores','lanceros','patricios','boleadoras','descarga','trinchera','baqueano','pardos','canon','cazadores'];
 const FREE_DIFF={regen:1,think:1,hpMul:1,spellTh:3.4,reserve:1,startMoral:5};
 const THEMES={
   pampa:{base:['#5d6a3c','#66713f','#56633a'],dry:.45,trees:'ombu',water:['#3b4f48','#4a6460','#4d6862','#34463f']},
@@ -721,7 +790,12 @@ const SFX=(()=>{
     mTrack=(mTrack+1)%mOrder.length}
   function trackName(){const L=mSet==='battle'?BATTLE:TRACKS,O=mSet==='battle'?bOrder:mOrder;return L[O[mTrack%O.length]].name}
   const api={
-    init,musicOn,musicOff,get trackName(){return mGain?trackName():''},TRACKS_:()=>TRACKS,BATTLE_:()=>BATTLE,
+    init,musicOn,musicOff,
+    suspend(){try{if(ac&&ac.state==='running')ac.suspend()}catch(e){}},
+    resume(){try{if(ac&&ac.state==='suspended'&&!document.hidden)ac.resume()}catch(e){}},get trackName(){return mGain?trackName():''},TRACKS_:()=>TRACKS,BATTLE_:()=>BATTLE,
+    levelUp(){if(!can('levelUp',.5))return;[523,659,784,1047].forEach((n,i)=>{tone(n,.5,{type:'triangle',gain:.11,when:i*.12,sus:true});tone(n*2,.35,{gain:.03,when:i*.12})});
+      tone(1047,1.4,{type:'triangle',gain:.12,when:.5,sus:true});tone(1319,1.3,{type:'sine',gain:.07,when:.5,sus:true});tone(1568,1.2,{type:'sine',gain:.05,when:.58,sus:true});
+      for(let i=0;i<8;i++)tone(2000+Math.random()*1800,.25,{gain:.025,when:.55+i*.1})},
     coin(){if(!can('coin',.08))return;tone(1320,.12,{type:'triangle',gain:.08});tone(1760,.18,{type:'triangle',gain:.07,when:.07})},
     pop(){if(!can('pop',.05))return;tone(520,.08,{type:'sine',gain:.08,f2:900})},
     get muted(){return muted},
@@ -942,6 +1016,7 @@ function lookFor(def,side,seed){
   if(L.civil){P.coat=L.shirt;P.pants=L.pants;P.belt=side==='p'?'#86b8e8':'#c7372b';}
   if(L.juana){P.coat=side==='p'?'#2a3d6b':'#8c2b22';P.trim='#d9b24f';P.pants='#3a2a22';P.belt='#d9b24f';P.skin='#c99a76';P.hair=true;}
   if(L.sergeant)P.stripe=true;
+  if(L.grape)P.iron=true;
   // vestimenta propia de cada carta: [patriotas, realistas]
   const pick=v=>Array.isArray(v)?(side==='p'?v[0]:v[1]):v;
   if(L.coat)P.coat=pick(L.coat);
@@ -1076,7 +1151,7 @@ function drawCannon(c,P,f,atk,ph,mv){
   const recoil=atk>0?-f*atk*2.5:0;
   c.save();c.translate(0,recoil);
   c.fillStyle='#4a3420';c.beginPath();c.moveTo(-2.4,-3);c.lineTo(2.4,-3);c.lineTo(1.4,f<0?7:-12);c.lineTo(-1.4,f<0?7:-12);c.closePath();c.fill();
-  let g=c.createLinearGradient(-2.6,0,2.6,0);g.addColorStop(0,'#e0b866');g.addColorStop(.45,'#a87b33');g.addColorStop(1,'#5b3e17');
+  let g=c.createLinearGradient(-2.6,0,2.6,0);if(P.iron){g.addColorStop(0,'#8a8d90');g.addColorStop(.45,'#3e4144');g.addColorStop(1,'#16181a')}else{g.addColorStop(0,'#e0b866');g.addColorStop(.45,'#a87b33');g.addColorStop(1,'#5b3e17')}
   c.fillStyle=g;const by=f<0?-15:2;c.beginPath();c.roundRect?c.roundRect(-2.1,Math.min(by,-4),4.2,13,1.6):c.rect(-2.1,Math.min(by,-4),4.2,13);c.fill();
   c.fillStyle='#3b2812';c.beginPath();c.arc(0,f<0?by:by+13,1.3,0,TAU);c.fill();
   for(const s of[-1,1]){c.fillStyle='#2b1d10';c.beginPath();c.ellipse(s*5,-3,1.6,5.2,0,0,TAU);c.fill();
@@ -1216,8 +1291,20 @@ function drawPulperia(c,b,t){const{x,y}=b;c.save();
   c.fillStyle='#5a3d22';c.fillRect(x+8,y-8,6,3);c.fillStyle='#e6dcc4';c.font='2.4px serif';c.fillText('PULP.',x+8.2,y-5.8);
   // humo de chimenea
   c.restore()}
+function drawBateria(c,b,t){const{x,y}=b,side=b.side||'p';c.save();
+  c.fillStyle='rgba(18,14,6,.32)';c.beginPath();c.ellipse(x+5,y+4,17,6,0,0,TAU);c.fill();
+  // tiradores detrás del parapeto
+  const P=lookFor(CARDS.tiradores,side,.3),P2=lookFor(CARDS.cazadores,side,.6);
+  drawFigure(c,x-6,y-1,.8,P,{facing:side==='p'?-1:1,atk:b.flash>0?1:0});drawFigure(c,x+6,y-2,.8,P2,{facing:side==='p'?-1:1,atk:b.flash>0?1:0});
+  // parapeto de tierra con cestones
+  let g=c.createLinearGradient(0,y-6,0,y+4);g.addColorStop(0,'#9a8458');g.addColorStop(1,'#5e4c30');c.fillStyle=g;
+  c.beginPath();c.moveTo(x-16,y+4);c.lineTo(x-14,y-3);c.lineTo(x+14,y-3);c.lineTo(x+16,y+4);c.closePath();c.fill();
+  for(let i=0;i<6;i++){const cx=x-12.5+i*5;const cg=c.createLinearGradient(cx-2,0,cx+2,0);cg.addColorStop(0,'#a07a4a');cg.addColorStop(1,'#5a3e22');c.fillStyle=cg;
+    c.fillRect(cx-2.1,y-6,4.2,5);c.strokeStyle='rgba(40,24,10,.55)';c.lineWidth=.35;for(let k=0;k<3;k++){c.beginPath();c.moveTo(cx-2.1,y-5+k*1.6);c.lineTo(cx+2.1,y-5+k*1.6);c.stroke()}}
+  drawFlag(c,x+13,y-6,side,t);
+  c.restore()}
 function drawBuilding(c,b,t){
-  if(b.kind==='fort')drawFort(c,b,t);else if(b.kind==='cmd')drawCmd(c,b,t);else if(b.kind==='trinchera')drawTrinchera(c,b);else drawPulperia(c,b,t);
+  if(b.kind==='fort')drawFort(c,b,t);else if(b.kind==='cmd')drawCmd(c,b,t);else if(b.kind==='trinchera')drawTrinchera(c,b);else if(b.kind==='bateria')drawBateria(c,b,t);else drawPulperia(c,b,t);
 }
 
 /* =========================================================
@@ -1302,7 +1389,7 @@ function playCard(side,idx,x,y){
   S.moral-=costOf(side,id);
   S.hand[idx]=S.cycle.shift();S.cycle.push(id);
   if(d.type==='troop'){
-    SFX.drum();
+    SFX.drum();G.fx.push({type:'label',x,y:y-26,text:d.short||d.name,t:0,dur:1.8,side});
     const F=formation(d.count);
     if(id==='juana'){const gid=uid++;const j=spawnUnit('juana',side,x,y,{group:gid,isLeader:true});
       const jl=j.lv;spawnUnit('guerrillero',side,x-9,y+6,{group:gid,lv:jl});spawnUnit('guerrillero',side,x+9,y+6,{group:gid,lv:jl});}
@@ -1327,9 +1414,9 @@ function castSpell(side,id,x,y){
     SFX.volley();
     for(let i=0;i<14;i++){const a=rnd(TAU),r=rnd(0,1)*CARDS.descarga.radius;
       const fx0=from.x+rnd(-24,24),fy0=from.y+(side==='p'?-4:4);
-      G.fx.push({type:'volley',x0:fx0,y0:fy0,x:x+Math.cos(a)*r,y:y+Math.sin(a)*r*.8,t:-i*.02,dur:.22})}
+      G.fx.push({type:'volley',x0:fx0,y0:fy0,x:x+Math.cos(a)*r,y:y+Math.sin(a)*r*.8,t:-i*.03,dur:.5})}
     G.fx.push({type:'ring',x,y,r:CARDS.descarga.radius,t:0,dur:.5,color:'rgba(240,230,210,'});
-    setTimeout(()=>{if(!G||G.phase==='over')return;areaDamage(side,x,y,CARDS.descarga.radius,CARDS.descarga.dmg*sm,.3)},280);
+    setTimeout(()=>{if(!G||G.phase==='over')return;areaDamage(side,x,y,CARDS.descarga.radius,CARDS.descarga.dmg*sm,.3)},880);
   }
   else if(id==='arenga'){
     SFX.charge();
@@ -1362,6 +1449,7 @@ function hurt(t,amount,src){
 }
 function killUnit(u){
   u.dead=true;
+  if(isAir(u)){G.fx.push({type:'fall',x:u.x,y:u.y,alt:ALT,t:0,dur:1.4,side:u.side,P:u.P,ph:u.phase});return}
   for(let i=0;i<4;i++)addPart('dust',u.x+rnd(-4,4),u.y+rnd(-2,2),{vx:rnd(-10,10),vy:rnd(-8,0),life:.7,size:rnd(5,9),alpha:.45});
   G.decals.push({x:u.x,y:u.y,type:'body',side:u.side,t:0,P:u.P,mount:!!u.P.mount,rot:rnd(-1,1)});
   if(G.decals.length>60)G.decals.shift();
@@ -1418,12 +1506,20 @@ function enemyBuildingTarget(u){
   if(f)return f;
   return G.builds.find(b=>b.side===opp&&b.kind==='cmd'&&!b.dead)||null;
 }
+function canHitAir(d){return!!(d&&d.ranged&&!d.groundOnly&&d.proj!=='ball')}
+function isAir(t){return!!(t&&t.d&&t.d.air)}
+function edgeDist(u,o){return Math.hypot(o.x-u.x,o.y-u.y)-(o.r||0)}
 function findTarget(u){
-  if(!u.d.bOnly){
-    let best=null,bd=SIGHT;
-    for(const o of G.units)if(o.side!==u.side&&!o.dead&&o.deploy<=0){const d=Math.hypot(o.x-u.x,o.y-u.y)-o.r;if(d<bd){bd=d;best=o}}
-    if(best)return best;
-  }
+  const opp=enemyOf(u.side);let best=null,bd=SIGHT;
+  if(!u.d.bOnly){const air=canHitAir(u.d);
+    for(const o of G.units)if(o.side===opp&&!o.dead&&o.deploy<=0&&(!isAir(o)||air)){const d=edgeDist(u,o);if(d<bd){bd=d;best=o}}}
+  if(!u.d.groundOnly||true){
+    for(const b of G.builds)if(b.side===opp&&!b.dead){const d=edgeDist(u,b);if(d<bd&&!(u.d.groundOnly&&false)){bd=d;best=b}}}
+  if(u.d.groundOnly&&best&&!best.d){ // la metralla no le tira a edificios: solo avanza hacia ellos
+    let bu=null,bud=SIGHT*1.2;for(const o of G.units)if(o.side===opp&&!o.dead&&o.deploy<=0&&!isAir(o)){const d=edgeDist(u,o);if(d<bud){bud=d;bu=o}}
+    if(bu)return bu;}
+  if(best)return best;
+  if(u.d.air){let nb=null,nd=1e9;for(const b of G.builds)if(b.side===opp&&!b.dead){const d=edgeDist(u,b);if(d<nd){nd=d;nb=b}}return nb}
   return enemyBuildingTarget(u);
 }
 function nearestFord(x){return Math.abs(x-FORDS[0])<Math.abs(x-FORDS[1])?FORDS[0]:FORDS[1]}
@@ -1461,9 +1557,11 @@ function updateUnits(dt){
     const bandera=mySide.mech==='def'&&mySide.orderT>0;
     if(u.stun>0){if(bandera)u.stun=0;else{u.stun-=dt;u.moving=false;continue}}
     u.retarget-=dt;
-    if(!u.target||u.target.dead||u.retarget<=0){const nt=findTarget(u);if(nt!==u.target){u.target=nt;u.cd=Math.max(u.cd,.35)}u.retarget=.3}
+    if(u.target&&u.target.dead){u.target=null;u.locked=false}
+    if(!u.locked&&(!u.target||u.retarget<=0)){const nt=findTarget(u);if(nt!==u.target){u.target=nt;u.cd=Math.max(u.cd,.35)}u.retarget=.3}
     const t=u.target;if(!t){u.moving=false;continue}
     const reach=Math.hypot(t.x-u.x,t.y-u.y)-t.r-u.r;
+    if(u.d.groundOnly&&!t.d&&reach<=u.d.range){u.moving=false;continue}
     if(reach<=u.d.range){
       u.moving=false;
       if(Math.abs(t.y-u.y)>2)u.face=t.y>u.y?1:-1;
@@ -1471,12 +1569,13 @@ function updateUnits(dt){
       let mul=1;
       if(G.units.some(o=>o.card==='tambor'&&!o.dead&&o.side===u.side&&o!==u&&o.deploy<=0&&Math.hypot(o.x-u.x,o.y-u.y)<72))mul=1.25;
       u.cd-=dt*mul;
+      u.locked=true;
       if(u.cd<=0){u.cd=u.d.hs;attack(u,t)}
     }else{
       let spd=u.d.spd*SPEED;
       if(mySide.mech==='fast'&&u.d.tag==='gaucho')spd*=1.2;
       if(bandera)spd*=1.3;
-      let[px,py]=pathPoint(u,t.x,t.y);[px,py]=avoidBuildings(u,px,py,t);
+      let px=t.x,py=t.y;if(!u.d.air){[px,py]=pathPoint(u,t.x,t.y);[px,py]=avoidBuildings(u,px,py,t)}
       const dx=px-u.x,dy=py-u.y,dd=Math.hypot(dx,dy)||1;
       u.x+=dx/dd*spd*dt;u.y+=dy/dd*spd*dt;u.moving=true;if(u.d.cav)SFX.hoof();u.phase+=dt*spd*.22;
       if(Math.abs(dy)>.5)u.face=dy>0?1:-1;
@@ -1486,11 +1585,11 @@ function updateUnits(dt){
   // separación y obstáculos
   const L=G.units;
   for(let i=0;i<L.length;i++){const a=L[i];if(a.dead)continue;
-    for(let j=i+1;j<L.length;j++){const b=L[j];if(b.dead)continue;
+    for(let j=i+1;j<L.length;j++){const b=L[j];if(b.dead||isAir(a)!==isAir(b))continue;
       const dx=b.x-a.x,dy=b.y-a.y,min=a.r+b.r;if(Math.abs(dx)>min||Math.abs(dy)>min)continue;
       const d=Math.hypot(dx,dy)||.01;if(d<min){const push=(min-d)/2,nx=dx/d,ny=dy/d;
         const wa=a.d.big?.3:.5,wb=b.d.big?.3:.5;a.x-=nx*push*wa*1.6;a.y-=ny*push*wa*1.6;b.x+=nx*push*wb*1.6;b.y+=ny*push*wb*1.6}}}
-  for(const u of L){if(u.dead)continue;
+  for(const u of L){if(u.dead||isAir(u))continue;
     for(const b of G.builds){if(b.dead)continue;const dx=u.x-b.x,dy=u.y-b.y,d=Math.hypot(dx,dy)||.01,min=b.r*.85+u.r;
       if(d<min){u.x=b.x+dx/d*min;u.y=b.y+dy/d*min}}
     u.x=clamp(u.x,5,W-5);u.y=clamp(u.y,5,H-5);
@@ -1510,9 +1609,16 @@ function attack(u,t){
     SFX.cannon();
     G.proj.push({type:'ball',x0:u.x,y0:u.y+u.face*12,x1:t.x,y1:t.y-6,t:0,dur:Math.max(.35,Math.hypot(t.x-u.x,t.y-u.y)/BALL_SPEED),dmg,side:u.side,target:t,arc:22});
     muzzle(u.x,u.y+u.face*14,u.face,true);
+  }else if(u.d.air){
+    G.fx.push({type:'bomb',x:t.x+rnd(-4,4),y:t.y-4,alt:ALT,t:0,dur:.45,dmg,target:t,side:u.side});SFX.whoosh();
+  }else if(u.d.proj==='grape'){
+    SFX.cannon();muzzle(u.x,u.y+u.face*14,u.face,true);
+    for(let i=0;i<6;i++)G.fx.push({type:'tracer',x0:u.x,y0:u.y+u.face*12,x1:t.x+rnd(-18,18),y1:t.y-4+rnd(-10,10),t:0,dur:.12});
+    for(const o of G.units)if(o.side!==u.side&&!o.dead&&!isAir(o)&&o.deploy<=0&&Math.hypot(o.x-t.x,o.y-t.y)<u.d.splash+o.r)hurt(o,dmg,u);
+    for(let i=0;i<6;i++)addPart('dust',t.x+rnd(-14,14),t.y+rnd(-6,6),{vx:rnd(-12,12),vy:rnd(-8,0),life:.6,size:rnd(4,7),alpha:.55});
   }else if(u.d.ranged){
-    const mx=u.x+3.6,my=u.y-9+u.face*7;muzzle(mx,my,u.face,false);SFX.musket();
-    G.fx.push({type:'tracer',x0:mx,y0:my,x1:t.x+rnd(-2,2),y1:t.y-6+rnd(-2,2),t:0,dur:.07});
+    const mx=u.x+3.6,my=u.y-9+u.face*7-(u.P.mount?6:0);muzzle(mx,my,u.face,false);SFX.musket();
+    G.fx.push({type:'tracer',x0:mx,y0:my,x1:t.x+rnd(-2,2),y1:t.y-(isAir(t)?ALT+4:6)+rnd(-2,2),t:0,dur:.07});
     hurt(t,dmg,u);addPart('dust',t.x+rnd(-3,3),t.y-rnd(0,6),{life:.35,size:3,alpha:.6,grow:6});
   }else{
     hurt(t,dmg,u);SFX.clash();
@@ -1520,26 +1626,32 @@ function attack(u,t){
     if(Math.random()<.5)addPart('spark',(u.x+t.x)/2,(u.y+t.y)/2-8,{vx:rnd(-30,30),vy:rnd(-30,0),life:.18,size:1});
   }
 }
+function buildingShoot(b,dt){
+  b.cd-=dt;if(b.cd>0)return;
+  const range=b.kind==='bateria'?CARDS.bateria.range:b.range;
+  let best=null,bd=range;
+  for(const u of G.units)if(u.side!==b.side&&!u.dead&&u.deploy<=0){const d=Math.hypot(u.x-b.x,u.y-b.y)-u.r-b.r;if(d<bd){bd=d;best=u}}
+  if(!best)return;
+  const dmg=b.kind==='bateria'?CARDS.bateria.dmg*lvMul(b.lv):b.dmg;
+  b.cd=b.kind==='bateria'?CARDS.bateria.hs:b.hs;b.flash=.15;
+  const mx=b.kind==='fort'?b.x+5:b.kind==='bateria'?b.x+rnd(-8,8):b.x+rnd(-18,18),my=b.kind==='fort'?b.y-41:b.kind==='bateria'?b.y-8:b.y-2;
+  muzzle(mx,my,b.side==='p'?-1:1,b.kind==='cmd');SFX.musket();
+  G.fx.push({type:'tracer',x0:mx,y0:my,x1:best.x,y1:best.y-(isAir(best)?ALT+4:6),t:0,dur:.07});
+  hurt(best,dmg);
+}
 function updateBuilds(dt){
   for(const b of G.builds){
     if(b.dead){if(b.main){b.smokeT=(b.smokeT||0)+dt;if(b.smokeT<14&&Math.random()<dt*8)addPart('dark',b.x+rnd(-12,12),b.y-rnd(0,10),{vx:rnd(2,8),vy:rnd(-16,-8),life:rnd(1.6,2.8),size:rnd(6,10),alpha:.45,grow:10})}continue}
     b.hitT=Math.max(0,(b.hitT||0)-dt);b.flash=Math.max(0,b.flash-dt);
     if(!b.main){
       b.life-=dt;b.hp-=b.maxHp/b.maxLife*dt*.35;
-      if(b.kind==='pulperia'){b.spawnT-=dt;if(b.spawnT<=0){b.spawnT=6;spawnUnit('milicianos',b.side,b.x+rnd(-6,6),b.y+(b.side==='p'?-14:14),{deploy:.3,lv:b.lv})}
+      if(b.kind==='pulperia'){b.spawnT-=dt;if(b.spawnT<=0){b.spawnT=7;spawnUnit('milicianos',b.side,b.x+rnd(-6,6),b.y+(b.side==='p'?-14:14),{deploy:.3,lv:b.lv})}
         if(Math.random()<dt*2)addPart('smoke',b.x+9,b.y-20,{vx:3,vy:-8,life:2,size:3,alpha:.35,grow:6})}
+      if(b.kind==='bateria'&&b.life>0)buildingShoot(b,dt);
       if(b.life<=0||b.hp<=0){b.dead=true;for(let i=0;i<8;i++)addPart('dust',b.x+rnd(-12,12),b.y+rnd(-6,4),{vx:rnd(-10,10),vy:rnd(-10,0),life:.9,size:rnd(6,11),alpha:.5})}
       continue}
     if(!b.awake)continue;
-    b.cd-=dt;
-    if(b.cd>0)continue;
-    let best=null,bd=b.range;
-    for(const u of G.units)if(u.side!==b.side&&!u.dead&&u.deploy<=0){const d=Math.hypot(u.x-b.x,u.y-b.y)-u.r-b.r;if(d<bd){bd=d;best=u}}
-    if(best){b.cd=b.hs;b.flash=.15;
-      const mx=b.kind==='fort'?b.x+5:b.x+rnd(-18,18),my=b.kind==='fort'?b.y-41:b.y-2;
-      muzzle(mx,my,b.side==='p'?-1:1,b.kind==='cmd');SFX.musket();
-      G.fx.push({type:'tracer',x0:mx,y0:my,x1:best.x,y1:best.y-6,t:0,dur:.07});
-      hurt(best,b.dmg)}
+    buildingShoot(b,dt);
   }
   G.builds=G.builds.filter(b=>b.main||!b.dead);
 }
@@ -1561,10 +1673,19 @@ function updateProj(dt){
 function updateFx(dt){
   for(const f of G.fx){f.t+=dt;
     if(f.type==='bolas'&&!f.hit&&f.t>=f.dur){f.hit=true;
-      for(const u of G.units)if(u.side!==f.side&&!u.dead&&Math.hypot(u.x-f.x,u.y-f.y)<CARDS.boleadoras.radius+u.r){
+      for(const u of G.units)if(u.side!==f.side&&!u.dead&&!isAir(u)&&Math.hypot(u.x-f.x,u.y-f.y)<CARDS.boleadoras.radius+u.r){
         const S=G.side[u.side];if(!(S.mech==='def'&&S.orderT>0)){u.stun=2.5}hurt(u,f.dmg||CARDS.boleadoras.dmg)}
       G.fx.push({type:'ring',x:f.x,y:f.y,r:CARDS.boleadoras.radius,t:0,dur:.45,color:'rgba(220,200,150,'});
       for(let i=0;i<8;i++)addPart('dust',f.x+rnd(-20,20),f.y+rnd(-10,10),{vx:rnd(-10,10),vy:rnd(-6,0),life:.6,size:rnd(5,9),alpha:.5})}
+    if(f.type==='bomb'&&!f.hit&&f.t>=f.dur){f.hit=true;SFX.boom();
+      if(f.target&&!f.target.dead)hurt(f.target,f.dmg);
+      for(const o of G.units)if(o.side!==f.side&&!o.dead&&!isAir(o)&&Math.hypot(o.x-f.x,o.y-f.y)<18+o.r)hurt(o,f.dmg*.35);
+      addPart('flash',f.x,f.y-4,{life:.12,size:30,alpha:1,grow:20});
+      for(let i=0;i<10;i++)addPart(i%2?'fire':'dark',f.x+rnd(-8,8),f.y+rnd(-6,3),{vx:rnd(-20,20),vy:rnd(-30,-5),life:rnd(.5,1.2),size:rnd(6,12),alpha:.8,grow:12})}
+    if(f.type==='fall'){if(Math.random()<dt*25){const k=Math.min(1,f.t/f.dur),al=f.alt*(1-k*k);addPart('dark',f.x+k*14+rnd(-3,3),f.y-al-8,{vx:rnd(-4,4),vy:rnd(-10,-3),life:1.2,size:rnd(4,8),alpha:.6,grow:8})}
+      if(!f.crashed&&f.t>=f.dur){f.crashed=true;SFX.collapse();G.decals.push({x:f.x+14,y:f.y,type:'scorch',r:14});
+        for(let i=0;i<14;i++)addPart(i%3?'dust':'fire',f.x+14+rnd(-10,10),f.y+rnd(-5,4),{vx:rnd(-24,24),vy:rnd(-22,0),life:rnd(.6,1.3),size:rnd(6,12),alpha:.75,grow:10});
+        for(let i=0;i<8;i++)addPart('debris',f.x+14,f.y-2,{vx:rnd(-50,50),vy:rnd(-60,-15),life:.8,size:rnd(1,2),grav:150})}}
     if(f.type==='volley'&&f.t>=0&&!f.fired){f.fired=true;muzzle(f.x0,f.y0,f.y>f.y0?1:-1,false)}
     if(f.type==='volley'&&f.t>=f.dur&&!f.hit){f.hit=true;addPart('dust',f.x,f.y,{vx:rnd(-8,8),vy:rnd(-8,0),life:.5,size:rnd(3,6),alpha:.6,grow:6})}
     if(f.type==='arenga'&&Math.random()<dt*10)addPart('heal',f.x+rnd(-f.r,f.r)*.8,f.y+rnd(-f.r,f.r)*.5,{vy:-12,life:1,size:rnd(3,6),alpha:.5})
@@ -1605,7 +1726,7 @@ function aiThink(dt){
   if(!troops.length)return;
   if(threats.length){
     const th=threats.sort((a,b)=>a.y-b.y)[0];
-    const anti=th.d.cav?troops.find(c=>c.id==='lanceros'||c.id==='pardos'||c.id==='patricios'):null;
+    const anti=th.d.air?troops.find(c=>canHitAir(c.d)||c.id==='bateria'):th.d.cav?troops.find(c=>c.id==='lanceros'||c.id==='pardos'||c.id==='patricios'):null;
     const tank=th.hp>900?troops.sort((a,b)=>b.d.cost-a.d.cost)[0]:null;
     const pick=anti||tank||troops[Math.random()*troops.length|0];
     let x=clamp(th.x+rnd(-12,12),16,W-16),y=clamp(th.y-46,40,252);
@@ -1643,8 +1764,8 @@ function useOrder(side){
    BUCLE PRINCIPAL
    ========================================================= */
 function update(dt){
-  if(!G)return;G.t+=dt;
-  if(G.banner){G.banner.t+=dt;if(G.banner.t>2.2)G.banner=null}
+  if(!G||G.paused)return;G.t+=dt;
+  if(G.banner){G.banner.t+=dt;if(G.banner.t>(G.banner.sub?3.8:2.2))G.banner=null}
   G.shake=Math.max(0,(G.shake||0)-dt);
   if(G.phase==='play'||G.phase==='sudden'){
     G.time-=dt;
@@ -1701,7 +1822,7 @@ function render(){
   // objetos ordenados por profundidad
   const objs=[];
   for(const b of G.builds)objs.push({y:b.y+(b.kind==='cmd'?14:b.kind==='fort'?10:4),b});
-  for(const u of G.units)objs.push({y:u.y,u});
+  for(const u of G.units)objs.push({y:isAir(u)?u.y+1000:u.y,u});
   objs.sort((a,b)=>a.y-b.y);
   for(const o of objs){if(o.b)drawBuilding(ctx,o.b,t);else drawUnit(ctx,o.u,t)}
   // barras de vida
@@ -1710,7 +1831,7 @@ function render(){
     hpBar(ctx,b.x-w/2,yy,w,b.main?4:3,b.hp/b.maxHp,b.side,b.hitT>0);
     if(b.kind==='cmd'&&!b.awake&&b.hp===b.maxHp){ctx.fillStyle='rgba(240,230,200,.8)';ctx.font='italic 7px "IM Fell English",Georgia,serif';ctx.textAlign='center';ctx.fillText('en guardia',b.x,yy-3)}
   }
-  for(const u of G.units){if(u.hp<u.maxHp&&u.deploy<=0){const mounted=!!u.P.mount;hpBar(ctx,u.x-8,u.y-((mounted?34:26)+(u.d.big?3:0))*US,16,2.2,u.hp/u.maxHp,u.side,u.hitT>0)}
+  for(const u of G.units){if(u.hp<u.maxHp&&u.deploy<=0){const mounted=!!u.P.mount;hpBar(ctx,u.x-8,isAir(u)?u.y-ALT-20*US:u.y-((mounted?34:26)+(u.d.big?3:0))*US,16,2.2,u.hp/u.maxHp,u.side,u.hitT>0)}
     if(u.stun>0){ctx.strokeStyle='rgba(240,220,150,.9)';ctx.lineWidth=.8;for(let i=0;i<3;i++){const a=t*6+i*TAU/3;ctx.beginPath();ctx.arc(u.x+Math.cos(a)*6,u.y-30+Math.sin(a)*1.8,1,0,TAU);ctx.stroke()}}}
   // proyectiles
   for(const p of G.proj){const k2=p.t/p.dur,x=p.x0+(p.x1-p.x0)*k2,yb=p.y0+(p.y1-p.y0)*k2,h=Math.sin(Math.PI*k2)*p.arc;
@@ -1733,21 +1854,52 @@ function render(){
       ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(hover.x,hover.y,d.radius,d.radius*.8,0,0,TAU);ctx.fill();ctx.stroke()}
     else if(d.type==='build'){drawBuilding(ctx,{kind:id,side:'p',x:hover.x,y:hover.y,r:d.r,hp:1,maxHp:1},t)}
     else{const F=id==='juana'?[[0,0],[-9,6],[9,6]]:formation(d.count);F.forEach(([dx,dy],i)=>{
-      const P=lookFor(id==='juana'&&i>0?CARDS.guerrillero:d,'p',.4);drawFigure(ctx,hover.x+dx*US,hover.y+dy*US,(d.big?1.2:1)*US,P,{facing:-1,cannon:!!d.look.cannon})});
+      const P=lookFor(id==='juana'&&i>0?CARDS.guerrillero:d,'p',.4);if(d.air){ctx.save();ctx.translate(hover.x,hover.y-ALT);ctx.scale(US,US);drawBalloon(ctx,0,0,P,t*3,1,false);ctx.restore()}else drawFigure(ctx,hover.x+dx*US,hover.y+dy*US,(d.big?1.2:1)*US,P,{facing:-1,cannon:!!d.look.cannon})});
       if(d.range>40){ctx.strokeStyle='rgba(250,240,210,.6)';ctx.setLineDash([3,3]);ctx.beginPath();ctx.arc(hover.x,hover.y,d.range,0,TAU);ctx.stroke();ctx.setLineDash([])}}
     if(!ok){ctx.globalAlpha=.9;ctx.strokeStyle='#e0604a';ctx.lineWidth=1.5;ctx.beginPath();ctx.moveTo(hover.x-6,hover.y-6);ctx.lineTo(hover.x+6,hover.y+6);ctx.moveTo(hover.x+6,hover.y-6);ctx.lineTo(hover.x-6,hover.y+6);ctx.stroke()}
     hover=hv;
     ctx.restore();
   }
   // estandarte de orden
-  if(G.banner){const b=G.banner,a=Math.min(1,b.t*4)*Math.min(1,(2.2-b.t)*3);ctx.save();ctx.globalAlpha=a;
-    ctx.fillStyle='rgba(20,14,8,.75)';ctx.fillRect(0,RY-22,W,b.sub?50:40);
-    ctx.fillStyle=b.side==='p'?'#cfe2f5':b.side==='e'?'#f2b3a3':'#f1e3c0';ctx.textAlign='center';ctx.font='22px "IM Fell English SC",Georgia,serif';
-    ctx.fillText(b.text,W/2,RY+5);if(b.sub){ctx.font='italic 9px "IM Fell English",Georgia,serif';ctx.fillStyle='#e8dcc0';ctx.fillText(b.sub,W/2,RY+20)}ctx.restore()}
+  if(G.banner){const b=G.banner,end=b.sub?3.8:2.2,a=Math.min(1,b.t*4)*Math.min(1,(end-b.t)*3);ctx.save();ctx.globalAlpha=Math.max(0,a);
+    ctx.textAlign='center';let lines=[];
+    if(b.sub){ctx.font='italic 13px "IM Fell English",Georgia,serif';const words=b.sub.split(' ');let cur='';
+      for(const w of words){const tt=cur?cur+' '+w:w;if(ctx.measureText(tt).width>W-30&&cur){lines.push(cur);cur=w}else cur=tt}if(cur)lines.push(cur)}
+    const h=34+lines.length*16;ctx.fillStyle='rgba(20,14,8,.82)';ctx.fillRect(0,RY-22,W,h);
+    ctx.fillStyle=b.side==='p'?'#cfe2f5':b.side==='e'?'#f2b3a3':'#f1e3c0';ctx.font='22px "IM Fell English SC",Georgia,serif';ctx.fillText(b.text,W/2,RY+3);
+    ctx.font='italic 13px "IM Fell English",Georgia,serif';ctx.fillStyle='#f0e4c8';lines.forEach((l,i)=>ctx.fillText(l,W/2,RY+22+i*16));ctx.restore()}
 }
 function hpBar(c,x,y,w,h,v,side,hit){c.fillStyle='rgba(10,8,6,.75)';c.fillRect(x-.5,y-.5,w+1,h+1);
   c.fillStyle=hit?'#fff':side==='p'?'#80b4e8':'#d9654c';c.fillRect(x,y,w*clamp(v,0,1),h)}
+function drawBalloon(c,x,y,P,ph,deflate,burning){
+  deflate=deflate==null?1:deflate;const side=P?P.side:'p';
+  const bob=Math.sin(ph*.6)*1.2;c.save();c.translate(x,y+bob);
+  const rx=8,ry=10*deflate;
+  const cols=side==='p'?['#86b8e8','#f3efe3']:['#c7372b','#e8c45a'];
+  // gajos
+  for(let i=0;i<6;i++){const a0=-1+i/3,a1=-1+(i+1)/3;c.fillStyle=cols[i%2];c.beginPath();
+    for(let j=0;j<=10;j++){const t=j/10*Math.PI;const xx=Math.sin(t)*rx*(a0),yy=-Math.cos(t)*ry;j?c.lineTo(xx,yy-ry*.15):c.moveTo(xx,yy-ry*.15)}
+    for(let j=10;j>=0;j--){const t=j/10*Math.PI;const xx=Math.sin(t)*rx*(a1),yy=-Math.cos(t)*ry;c.lineTo(xx,yy-ry*.15)}c.closePath();c.fill()}
+  let g=c.createRadialGradient(-3,-ry*.6,1,0,-ry*.15,rx*1.4);g.addColorStop(0,'rgba(255,255,255,.35)');g.addColorStop(.6,'rgba(0,0,0,0)');g.addColorStop(1,'rgba(0,0,0,.35)');
+  c.fillStyle=g;c.beginPath();c.ellipse(0,-ry*.15,rx,ry,0,0,TAU);c.fill();
+  c.strokeStyle='rgba(60,40,20,.55)';c.lineWidth=.35;c.beginPath();c.ellipse(0,-ry*.15,rx,ry,0,0,TAU);c.stroke();
+  c.beginPath();c.moveTo(-rx,-ry*.15);c.quadraticCurveTo(0,ry*.25,rx,-ry*.15);c.stroke();
+  // sogas y canasta
+  c.strokeStyle='#5a4128';c.lineWidth=.4;c.beginPath();c.moveTo(-3.5,ry*.7);c.lineTo(-2.2,ry*.85+5);c.moveTo(3.5,ry*.7);c.lineTo(2.2,ry*.85+5);c.stroke();
+  c.fillStyle='#e8a24a';if(!burning&&Math.random()<.7){c.beginPath();c.ellipse(0,ry*.85+3,1,1.8,0,0,TAU);c.fill()}
+  c.fillStyle='#7a5430';c.fillRect(-2.6,ry*.85+5,5.2,3.4);c.strokeStyle='rgba(40,24,10,.6)';c.lineWidth=.3;
+  for(let i=-2;i<=2;i++){c.beginPath();c.moveTo(i*1.1,ry*.85+5);c.lineTo(i*1.1,ry*.85+8.4);c.stroke()}
+  if(P){c.fillStyle=P.skin||'#c99a76';c.beginPath();c.arc(.6,ry*.85+4.2,1.2,0,TAU);c.fill();c.fillStyle='#111';c.fillRect(-.7,ry*.85+2.6,2.6,.9)}
+  if(burning){for(let i=0;i<2;i++){c.globalAlpha=.8;c.drawImage(SPR.fire,-5+i*4,-ry-2,7,7)}c.globalAlpha=1}
+  c.restore();
+}
 function drawUnit(c,u,t){
+  if(isAir(u)){c.save();c.globalAlpha=u.deploy>0?clamp(1-u.deploy/.8,0,1)*.8+.2:1;
+    c.fillStyle='rgba(18,14,6,.3)';c.beginPath();c.ellipse(u.x+5,u.y+2,7,3,0,0,TAU);c.fill();
+    c.strokeStyle=u.side==='p'?'rgba(128,180,232,.7)':'rgba(217,101,76,.7)';c.lineWidth=.8;c.beginPath();c.ellipse(u.x,u.y,6,2.6,0,0,TAU);c.stroke();
+    c.translate(u.x,u.y-ALT);c.scale(US,US);drawBalloon(c,0,0,u.P,t*3+u.seed*10,1,false);
+    if(u.hitT>0){c.globalAlpha=.35;c.fillStyle='#fff';c.beginPath();c.ellipse(0,-1.5,8,10,0,0,TAU);c.fill()}
+    c.restore();return}
   c.save();
   const alpha=u.deploy>0?clamp(1-u.deploy/.8,0,1)*.8+.2:1;c.globalAlpha=alpha;
   c.translate(u.x,u.y);c.scale(US,US);c.translate(-u.x,-u.y);
@@ -1772,6 +1924,14 @@ function drawBarrelIcon(c,x,y,k){c.save();c.translate(x,y);c.scale(k,k);
   c.restore()}
 function drawFx(c,f,t){
   const k=clamp(f.t/f.dur,0,1);
+  if(f.type==='label'){const a=Math.min(1,f.t*5)*Math.min(1,(f.dur-f.t)*2.5);if(a<=0)return;c.save();c.globalAlpha=a;c.font='bold 8px "Alegreya Sans",system-ui,sans-serif';c.textAlign='center';
+    const w=c.measureText(f.text).width+8,yy=f.y-f.t*6;c.fillStyle=f.side==='p'?'rgba(31,47,85,.9)':'rgba(120,32,24,.9)';c.fillRect(f.x-w/2,yy-8,w,11);c.fillStyle='#fff';c.fillText(f.text,f.x,yy);c.restore();return}
+  if(f.type==='bomb'){if(f.t>f.dur)return;const al=f.alt*(1-k*k);c.fillStyle='rgba(0,0,0,.3)';c.beginPath();c.ellipse(f.x,f.y,2,1,0,0,TAU);c.fill();
+    const g=c.createRadialGradient(f.x-.5,f.y-al-.5,.2,f.x,f.y-al,2);g.addColorStop(0,'#666');g.addColorStop(1,'#111');c.fillStyle=g;c.beginPath();c.arc(f.x,f.y-al,1.8,0,TAU);c.fill();
+    c.fillStyle='#ffcc66';c.fillRect(f.x+.8,f.y-al-2.4,.8,.8);return}
+  if(f.type==='fall'){if(f.t>f.dur)return;const al=f.alt*(1-k*k),def=1-k*.55;c.save();c.translate(f.x+k*14,f.y-al);c.rotate(k*.9);c.scale(US,US);
+    drawBalloon(c,0,0,f.P,f.ph||0,def,true);c.restore();
+    c.fillStyle=`rgba(18,14,6,${.3*(1-k)+.1})`;c.beginPath();c.ellipse(f.x+k*14+6*(1-k),f.y+2,8*(1-k*.5),3,0,0,TAU);c.fill();return}
   if(f.type==='volley'){if(f.t<0||f.t>f.dur)return;const a=Math.max(0,k-.35),x1=f.x0+(f.x-f.x0)*k,y1=f.y0+(f.y-f.y0)*k,xa=f.x0+(f.x-f.x0)*a,ya=f.y0+(f.y-f.y0)*a;
     c.strokeStyle='rgba(255,236,190,.8)';c.lineWidth=.8;c.beginPath();c.moveTo(xa,ya);c.lineTo(x1,y1);c.stroke();return}
   if(f.type==='tracer'){c.strokeStyle=`rgba(255,240,200,${.7*(1-k)})`;c.lineWidth=.6;c.beginPath();c.moveTo(f.x0,f.y0);c.lineTo(f.x1,f.y1);c.stroke()}
@@ -1812,7 +1972,8 @@ function cardArt(id,w,h){
   if(d.type==='troop')for(let i=0;i<140;i++){g.strokeStyle=`rgba(40,55,25,${.2+R()*.3})`;g.lineWidth=.6*u;const x=ix+R()*iw,y=iy+ih*.53+R()*ih*.47;g.beginPath();g.moveTo(x,y);g.lineTo(x+(R()-.5)*2*u,y-(2+R()*3)*u);g.stroke()}
   if(d.type==='spell')for(let i=0;i<6;i++){const z=(18+R()*20)*u;g.globalAlpha=.25;g.drawImage(SPR.dark,ix+R()*iw-z/2,iy+R()*ih*.5-z/2,z,z)}g.globalAlpha=1;
   const cx=ix+iw/2,base=iy+ih*.93;
-  if(d.type==='troop'){
+  if(d.look&&d.look.balloon){const k=ih/34;g.save();g.translate(cx,iy+ih*.5);g.scale(k,k);drawBalloon(g,0,0,lookFor(d,'p',.2),0,1,false);g.restore()}
+  else if(d.type==='troop'){
     const look=lookFor(d,'p',.2);
     const s2=ih/(look.mount?30:26)*(d.big?1.08:1)*(d.look.cannon?.9:1);
     const extra=id==='juana'?2:Math.min(d.count,3)-1;
@@ -1841,6 +2002,7 @@ function cardArt(id,w,h){
       drawFigure(g,cx-iw*.2,iy+ih*.66,ih/32,P,{facing:1});drawFigure(g,cx+iw*.18,iy+ih*.64,ih/32,lookFor(CARDS.tiradores,'p',.7),{facing:1,atk:1});
       g.drawImage(SPR.smoke,cx+iw*.22-9*u,iy+ih*.42-9*u,18*u,18*u);
       const k=iw/44;g.save();g.scale(k,k);drawTrinchera(g,{x:cx/k,y:(iy+ih*.8)/k});g.restore()}
+    else if(id==='bateria'){const k=iw/40;g.save();g.scale(k,k);drawBateria(g,{x:cx/k,y:(iy+ih*.8)/k,side:'p',flash:0},0);g.restore()}
     else if(id==='pulperia'){const k=ih/28;g.save();g.scale(k,k);drawPulperia(g,{x:cx/k,y:(iy+ih*.85)/k},0);g.restore()}
   }
   gr=g.createRadialGradient(cx,iy+ih/2,ih*.3,cx,iy+ih/2,ih*.85);gr.addColorStop(0,'rgba(0,0,0,0)');gr.addColorStop(1,'rgba(30,18,8,.5)');g.fillStyle=gr;g.fillRect(ix,iy,iw,ih);
@@ -1884,12 +2046,12 @@ function renderHand(){
   handEl.innerHTML='';
   const S=G.side.p;
   const nx=document.createElement('div');nx.className='card next';
-  const nid=S.cycle[0];nx.innerHTML='<span class="tag">Próxima</span>';nx.appendChild(copyCanvas(art(nid)));
+  const nid=S.cycle[0];nx.innerHTML='<span class="tag">Sigue</span>';nx.appendChild(copyCanvas(art(nid)));
   handEl.appendChild(nx);
   S.hand.forEach((id,i)=>{const d=CARDS[id];
     const b=document.createElement('button');b.className='card';b.id='card'+i;b.dataset.i=i;b.setAttribute('aria-label',d.name+', '+d.cost+' de moral. '+d.desc);
     b.appendChild(copyCanvas(art(id)));
-    b.insertAdjacentHTML('beforeend',`<span class="cost">${costOf('p',id)}</span>${statLine(id)}<span class="nm">${d.short||d.name}</span>`);
+    b.insertAdjacentHTML('beforeend',`<span class="cost">${costOf('p',id)}</span>${wcBadge(d)}${lvBadge(id)}${statLine(id)}<span class="nm">${d.short||d.name}</span>`);
     if(selected===i)b.classList.add('sel');
     b.addEventListener('contextmenu',e=>{e.preventDefault();openCard(id)});
     b.addEventListener('pointerdown',e=>{e.preventDefault();if(G.phase==='over')return;SFX.init();SFX.click();selected=selected===i?null:i;dragFromCard=true;hint();refreshHand()});
@@ -1997,12 +2159,13 @@ function isUnlocked(id){if(STARTER.includes(id))return true;return LEVELS.some((
 function unlockLevel(id){return LEVELS.find(L=>L.reward.includes(id))}
 
 /* ---------- mazos personalizados ---------- */
-let DECKS={};
+let DECKS={};const MAIN='main';
 try{const sv=JSON.parse(localStorage.getItem('fortines.decks')||'null');if(sv)DECKS=sv}catch(e){}
+if(!DECKS[MAIN]){const old=DECKS.sanmartin||Object.values(DECKS).find(Array.isArray);if(old)DECKS[MAIN]=old.slice()}
 function saveDecks(){try{localStorage.setItem('fortines.decks',JSON.stringify(DECKS))}catch(e){}}
-function savedDeck(cmd){return(DECKS[cmd]||COMMANDERS[cmd].deck).filter(k=>CARDS[k]&&!CARDS[k].hidden&&isUnlocked(k)).slice(0,8)}
-function editDeck(cmd){return DECKS[cmd]?savedDeck(cmd):deckFor(cmd)}
-function deckFor(cmd){const d=savedDeck(cmd);for(const k of COMMANDERS[cmd].deck.concat(STARTER)){if(d.length>=8)break;if(!d.includes(k)&&isUnlocked(k))d.push(k)}return d}
+function savedDeck(cmd){return(DECKS[MAIN]||COMMANDERS.sanmartin.deck).filter(k=>CARDS[k]&&!CARDS[k].hidden&&isUnlocked(k)).slice(0,8)}
+function editDeck(cmd){return DECKS[MAIN]?savedDeck(cmd):deckFor('sanmartin')}
+function deckFor(cmd){const d=savedDeck(cmd);for(const k of COMMANDERS.sanmartin.deck.concat(STARTER)){if(d.length>=8)break;if(!d.includes(k)&&isUnlocked(k))d.push(k)}return d}
 let deckCmd='sanmartin',colFilter='cost',swapId=null,modalId=null;
 const TYPE_LABEL={troop:'Tropa',spell:'Hechizo',build:'Estructura'};
 function speedLabel(v){return v>=65?'Muy rápida':v>=50?'Rápida':v>=38?'Media':'Lenta'}
@@ -2026,28 +2189,29 @@ function avgCost(d){return(d.reduce((a,k)=>a+CARDS[k].cost,0)/d.length).toFixed(
 function progBar(id){const u=nextUp(id),L=cardLv(id);if(!u)return'<span class="prog max"><i style="width:100%"></i><b>Nv '+L+' · máx.</b></span>';
   const n=cardN(id),pct=Math.min(100,n/u.need*100),ready=n>=u.need;
   return `<span class="prog${ready?' ready':''}"><i style="width:${pct}%"></i><b>Nv ${L} · ${n}/${u.need}${ready?' ▲':''}</b></span>`}
+function wcBadge(d){return d.bOnly?'<span class="wc">Solo estructuras</span>':''}
+function lvBadge(id){return`<span class="lvl" title="Nivel">${cardLv(id)}</span>`}
 function cardTile(id,cls){
   const d=CARDS[id],b=document.createElement('button');b.className='ccard'+(cls?' '+cls:'');b.setAttribute('aria-label',d.name+', '+d.cost+' de moral');
-  b.appendChild(copyCanvas(art(id)));b.insertAdjacentHTML('beforeend',`<span class="cost">${d.cost}</span><span class="rar r-${d.rar}">${d.rar}</span>${statLine(id)}<span class="nm">${d.short||d.name}</span>`+(cls&&cls.includes('locked')?`<span class="lock">Bloqueada<small>Ganá ${unlockLevel(id).name}</small></span>`:progBar(id)));return b;
+  b.appendChild(copyCanvas(art(id)));b.insertAdjacentHTML('beforeend',`<span class="cost">${d.cost}</span><span class="rar r-${d.rar}">${d.rar}</span>${wcBadge(d)}${cls&&cls.includes('locked')?'':lvBadge(id)}${statLine(id)}<span class="nm">${d.short||d.name}</span>`+(cls&&cls.includes('locked')?`<span class="lock">Bloqueada<small>Ganá ${unlockLevel(id).name}</small></span>`:progBar(id)));return b;
 }
 function renderDeck(anim){
   paintCoins();
   const tabs=document.getElementById('deckTabs');tabs.innerHTML='';
-  for(const id of PATRIOTS){const t=document.createElement('button');t.className='tab'+(id===deckCmd?' sel':'');t.textContent=COMMANDERS[id].short;
-    t.addEventListener('click',()=>{SFX.click();deckCmd=id;swapId=null;renderDeck()});tabs.appendChild(t)}
+  tabs.innerHTML='<span class="sub small">Es tu mazo para todas las batallas, con cualquier comandante.</span>';
   const deck=editDeck(deckCmd),grid=document.getElementById('deckGrid');grid.innerHTML='';
   for(let i=0;i<8;i++){const id=deck[i];
     if(id){const b=cardTile(id,swapId?'swap':'');b.style.setProperty('--d',(i*40)+'ms');
       if(anim&&anim.add===i)b.classList.add('pop');else if(anim)b.classList.add('nudge');
       b.addEventListener('click',()=>{SFX.click();
-        if(swapId){deck[i]=swapId;DECKS[deckCmd]=deck;saveDecks();swapId=null;SFX.pop();renderDeck({add:i})}else openCard(id)});grid.appendChild(b)}
+        if(swapId){deck[i]=swapId;DECKS[MAIN]=deck;saveDecks();swapId=null;SFX.pop();renderDeck({add:i})}else openCard(id)});grid.appendChild(b)}
     else{const e=document.createElement('div');e.className='slot';e.textContent='Vacío';grid.appendChild(e)}}
   const avg=deck.length?deck.reduce((a,k)=>a+CARDS[k].cost,0)/deck.length:0;
   document.getElementById('deckMeta').innerHTML=`<span><b>${deck.length}/8</b> cartas</span><span class="avg">Promedio de moral <b>${avg.toFixed(1).replace('.',',')}</b></span>`;
   const sb=document.getElementById('swapBar');sb.hidden=!swapId;if(swapId){sb.querySelector('.swapcard').innerHTML='';sb.querySelector('.swapcard').appendChild(cardTile(swapId,''))}
   const w=document.getElementById('deckWarn');
   if(swapId){w.hidden=true}
-  else if(deck.length<8){w.hidden=false;const f=8-deck.length;w.textContent=(f===1?'Falta 1 carta':'Faltan '+f+' cartas')+'. Si jugás así, se completa con las del mazo original de '+COMMANDERS[deckCmd].short+'.'}
+  else if(deck.length<8){w.hidden=false;const f=8-deck.length;w.textContent=(f===1?'Falta 1 carta':'Faltan '+f+' cartas')+'. Si jugás así, se completa sola con cartas básicas.'}
   else w.hidden=true;
   const chips=document.getElementById('colChips');chips.innerHTML='';
   for(const[k,l] of[['cost','Por moral'],['rar','Por rareza'],['type','Por tipo']]){const c=document.createElement('button');c.className='chip'+(colFilter===k?' sel':'');c.textContent=l;
@@ -2071,7 +2235,7 @@ function openCard(id){
   modalId=id;const d=CARDS[id],deck=editDeck(deckCmd),inDeck=deck.includes(id);
   const a=document.getElementById('mArt');a.innerHTML='';a.appendChild(copyCanvas(art(id,180)));
   document.getElementById('mName').textContent=d.name;
-  document.getElementById('mMeta').textContent=`${TYPE_LABEL[d.type]} · ${d.rar} · ${d.cost} de moral`;
+  document.getElementById('mMeta').textContent=`${TYPE_LABEL[d.type]} · ${d.rar} · ${d.cost} de moral`+(d.bOnly?' · Solo estructuras':'')+(d.air?' · Vuela':'');
   document.getElementById('mDesc').textContent=d.desc;
   const lv=cardLv(id),up=nextUp(id);
   document.getElementById('mStats').innerHTML=cardStats(d,lv).map(x=>`<span>${x}</span>`).join('');
@@ -2080,7 +2244,7 @@ function openCard(id){
   if(!isUnlocked(id))ml.innerHTML='';
   else ml.innerHTML=`<div class="lvrow"><b>Nivel ${lv}</b>${up?`<span>${cardN(id)}/${up.need} cartas · ${up.gold} monedas para el nivel ${lv+1}</span>`:'<span>Nivel máximo</span>'}</div>`+progBar(id).replace('class="prog','class="prog big')+
     (up?`<button class="btn up" id="mUp" ${canUp(id)?'':'disabled'}>${canUp(id)?'Mejorar a nivel '+(lv+1)+' · '+up.gold+' monedas':cardN(id)<up.need?'Te faltan '+(up.need-cardN(id))+' cartas':'Te faltan '+(up.gold-PROF.coins)+' monedas'}</button>`:'');
-  const mu=document.getElementById('mUp');if(mu)mu.addEventListener('click',()=>{if(doUpgrade(id)){SFX.coin();openCard(id);paintCoins();if(!document.getElementById('vDeck').hidden)renderDeck()}});
+  const mu=document.getElementById('mUp');if(mu)mu.addEventListener('click',()=>{if(doUpgrade(id)){SFX.levelUp();openCard(id);paintCoins();if(!document.getElementById('vDeck').hidden)renderDeck()}});
   const t=TIPS[id];document.getElementById('mTips').innerHTML=t?`<div><b>Sirve para:</b> ${t[0]}</div><div><b>Cuidado con:</b> ${t[1]}</div>`:'';
   const act=document.getElementById('mAct');act.disabled=false;act.hidden=menu.hidden;
   if(!isUnlocked(id)){act.textContent='Se gana en '+unlockLevel(id).name;act.disabled=true}
@@ -2092,9 +2256,9 @@ function openCard(id){
 document.getElementById('mAct').addEventListener('click',()=>{
   SFX.click();const deck=editDeck(deckCmd),id=modalId;
   let anim=null;
-  if(deck.includes(id)){DECKS[deckCmd]=deck.filter(k=>k!==id)}
-  else if(deck.length<8){deck.push(id);DECKS[deckCmd]=deck;anim={add:deck.length-1}}
-  else swapId=id;
+  if(deck.includes(id)){DECKS[MAIN]=deck.filter(k=>k!==id)}
+  else if(deck.length<8){deck.push(id);DECKS[MAIN]=deck;anim={add:deck.length-1}}
+  else{swapId=id;try{navigator.vibrate&&navigator.vibrate([30,40,30])}catch(e){}}
   saveDecks();modal.hidden=true;renderDeck(anim);if(swapId)document.getElementById('deckGrid').scrollIntoView({block:'center',behavior:'smooth'});
 });
 document.getElementById('mClose').addEventListener('click',()=>{modal.hidden=true});
@@ -2103,7 +2267,24 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.hidden=true});
 
 /* ---------- menú, campaña y final ---------- */
 const menu=document.getElementById('menu'),endEl=document.getElementById('endScreen');
-function showView(id){document.getElementById('app').classList.add('menuMode');for(const v of['vHome','vCamp','vBrief','vFree','vDeck','vHelp','vShop'])document.getElementById(v).hidden=v!==id;menu.hidden=false;menu.scrollTop=0;SFX.musicOn();paintCoins()}
+const PAGES=['vShop','vDeck','vHome','vCmds','vHelp'],SUBS=['vCamp','vBrief','vFree'];let curPage='vHome',curSub=null;
+const pagerEl=document.getElementById('pager'),subEl=document.getElementById('sublayer');
+function renderPage(v){if(v==='vShop')renderShop();else if(v==='vDeck')renderDeck();else if(v==='vCmds')renderCmds();paintCoins();
+  document.querySelectorAll('.tabb').forEach(b=>b.classList.toggle('sel',b.dataset.v===v))}
+function goPage(v,instant){curPage=v;const i=PAGES.indexOf(v);renderPage(v);pagerEl.scrollTo({left:i*pagerEl.clientWidth,behavior:instant?'auto':'smooth'})}
+let pgT=0;pagerEl.addEventListener('scroll',()=>{clearTimeout(pgT);pgT=setTimeout(()=>{const i=Math.round(pagerEl.scrollLeft/Math.max(1,pagerEl.clientWidth));const v=PAGES[i];
+  if(v&&v!==curPage){curPage=v;swapId=null;renderPage(v)}},90)});
+document.querySelectorAll('.tabb').forEach(b=>b.addEventListener('click',()=>{SFX.click();goPage(b.dataset.v)}));
+window.addEventListener('resize',()=>{if(!menu.hidden)pagerEl.scrollTo({left:PAGES.indexOf(curPage)*pagerEl.clientWidth})});
+function renderCmds(){const el=document.getElementById('cmdInfo');el.innerHTML='';
+  for(const id of PATRIOTS){const C=COMMANDERS[id];const d=document.createElement('div');d.className='cmdcard';d.appendChild(commanderArt(id,110,110));
+    d.insertAdjacentHTML('beforeend',`<div class="ct"><b>${C.name}</b><span class="tag">Siempre activa</span><p>${C.pas}</p><span class="tag gold">Orden: ${C.ord}</span><p>${C.ordDesc}</p></div>`);el.appendChild(d)}
+  el.insertAdjacentHTML('beforeend','<h2>Comandantes enemigos</h2>');
+  for(const id of Object.keys(COMMANDERS).filter(k=>COMMANDERS[k].realista)){const C=COMMANDERS[id];const d=document.createElement('div');d.className='cmdcard e';d.appendChild(commanderArt(id,110,110));
+    d.insertAdjacentHTML('beforeend',`<div class="ct"><b>${C.name}</b><span class="tag">Siempre activa</span><p>${C.pas}</p>${C.ord?`<span class="tag gold">Orden: ${C.ord}</span><p>${C.ordDesc}</p>`:'<p>No tiene orden especial.</p>'}</div>`);el.appendChild(d)}}
+function showView(id){document.getElementById('app').classList.add('menuMode');
+  if(PAGES.includes(id)){curSub=null;subEl.hidden=true;for(const v of SUBS)document.getElementById(v).hidden=true;menu.hidden=false;requestAnimationFrame(()=>goPage(id,true))}
+  else{curSub=id;subEl.hidden=false;subEl.scrollTop=0;for(const v of SUBS)document.getElementById(v).hidden=v!==id;menu.hidden=false}menu.hidden=false;menu.scrollTop=0;SFX.musicOn();paintCoins()}
 function renderFree(){
   const list=document.getElementById('cmdList');list.innerHTML='';
   for(const id of PATRIOTS){const C=COMMANDERS[id];
@@ -2159,18 +2340,12 @@ function startLevel(i){document.getElementById('app').classList.remove('menuMode
 function startFree(){document.getElementById('app').classList.remove('menuMode');menu.hidden=true;endEl.hidden=true;newGame({});updateCrowns()}
 document.addEventListener('pointerdown',()=>{SFX.init();if(!menu.hidden||!endEl.hidden)SFX.musicOn(.5,'menu');else SFX.musicOn(.22,'battle')},{capture:true});
 document.getElementById('goCamp').addEventListener('click',()=>{SFX.click();renderRoad();showView('vCamp')});
-document.getElementById('goDeck').addEventListener('click',()=>{SFX.click();swapId=null;renderDeck();showView('vDeck')});
-document.getElementById('deckBack').addEventListener('click',()=>{SFX.click();swapId=null;showView('vHome')});
 document.getElementById('goFree').addEventListener('click',()=>{SFX.click();renderFree();showView('vFree')});
 document.getElementById('campBack').addEventListener('click',()=>{SFX.click();showView('vHome')});
 document.getElementById('freeBack').addEventListener('click',()=>{SFX.click();showView('vHome')});
 document.getElementById('bBack').addEventListener('click',()=>{SFX.click();renderRoad();showView('vCamp')});
 document.getElementById('bGo').addEventListener('click',()=>startLevel(briefLevel));
-document.getElementById('goShop').addEventListener('click',()=>{SFX.click();renderShop();showView('vShop')});
-document.getElementById('shopBack').addEventListener('click',()=>{SFX.click();showView('vHome')});
 document.getElementById('swapCancel').addEventListener('click',()=>{SFX.click();swapId=null;renderDeck()});
-document.getElementById('goHelp').addEventListener('click',()=>{SFX.click();showView('vHelp')});
-document.getElementById('helpBack').addEventListener('click',()=>{SFX.click();showView('vHome')});
 document.getElementById('startBtn').addEventListener('click',startFree);
 document.getElementById('againBtn').addEventListener('click',()=>{if(CUR.level!=null)startLevel(CUR.level);else startFree()});
 document.getElementById('nextBtn').addEventListener('click',()=>{endEl.hidden=true;openBrief(CUR.level+1)});
@@ -2207,6 +2382,32 @@ function demoBoard(){newGame({demo:true,theme:'pampa'});G.phase='menu';
   const put=(id,s,x,y)=>{const u=spawnUnit(id,s,x,y);u.deploy=0;return u};
   put('granaderos','p',70,360);put('granaderos','p',90,372);put('tiradores','p',260,400);put('montoneras','e',270,230);put('montoneras','e',285,240);put('patricios','e',90,210);
   G.builds[3].hp=1100;}
+
+/* ---------- pausa, atrás de Android y segundo plano ---------- */
+const pauseEl=document.getElementById('pauseScreen');
+function inBattle(){return G&&menu.hidden&&endEl.hidden&&(G.phase==='play'||G.phase==='sudden')}
+function pauseGame(){if(!inBattle())return;G.paused=true;pauseEl.hidden=false}
+function resumeGame(){if(G)G.paused=false;pauseEl.hidden=true}
+document.getElementById('resumeBtn').addEventListener('click',()=>{SFX.click();resumeGame()});
+document.getElementById('quitBtn').addEventListener('click',()=>{SFX.click();pauseEl.hidden=true;if(G){G.paused=false;endGame('e')}});
+function goBack(){
+  if(!modal.hidden){modal.hidden=true;return true}
+  if(!pauseEl.hidden){resumeGame();return true}
+  if(inBattle()){pauseGame();return true}
+  if(!endEl.hidden){endEl.hidden=true;if(CUR.level!=null){renderRoad();showView('vCamp')}else showView('vHome');return true}
+  if(!menu.hidden){
+    if(swapId){swapId=null;renderDeck();return true}
+    if(curSub==='vBrief'){renderRoad();showView('vCamp');return true}
+    if(curSub){showView('vHome');return true}
+    if(curPage!=='vHome'){goPage('vHome');return true}
+  }
+  return false;
+}
+try{const CapApp=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App;
+  if(CapApp){CapApp.addListener('backButton',()=>{if(!goBack())CapApp.exitApp()});
+    CapApp.addListener('pause',()=>{SFX.suspend();pauseGame()});CapApp.addListener('resume',()=>{SFX.resume()})}}catch(e){}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.hidden)goBack()});
+document.addEventListener('visibilitychange',()=>{if(document.hidden){SFX.suspend();pauseGame()}else SFX.resume()});
 
 /* ---------- arranque ---------- */
 function loop(ts){

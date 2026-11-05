@@ -1,6 +1,6 @@
 {
   "name": "fortines-app",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "private": true,
   "description": "Fortines: juego de cartas de batalla ambientado en la Argentina de la Independencia",
   "scripts": {
@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@capacitor/android": "^8.6.0",
+    "@capacitor/app": "^8.1.2",
     "@capacitor/core": "^8.6.0"
   },
   "devDependencies": {
