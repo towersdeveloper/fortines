@@ -276,6 +276,9 @@ body{background:var(--bg);color:var(--parch);font-family:var(--f-body);overflow:
 .tag{align-self:flex-start;font-size:9px;letter-spacing:.1em;text-transform:uppercase;font-weight:800;color:#9cc7ef;border:1px solid #3c5878;border-radius:3px;padding:1px 4px}
 .tag.gold{color:#2a1f14;background:linear-gradient(#e2c57a,#a8802f);border-color:#6b4d18}
 #pauseScreen{z-index:8}
+.toast{position:fixed;left:50%;bottom:calc(90px + env(safe-area-inset-bottom,0px));transform:translateX(-50%) translateY(20px);opacity:0;pointer-events:none;
+  background:rgba(14,10,7,.92);color:var(--parch);border:1px solid #4a3826;border-radius:999px;padding:8px 14px;font-size:13px;z-index:30;transition:opacity .2s,transform .2s;white-space:nowrap}
+.toast.on{opacity:1;transform:translateX(-50%) translateY(0)}
 @media (max-width:380px){.sheet h1{font-size:36px}.cmd .s{display:none}}
 @media (prefers-reduced-motion:reduce){.card,.moral .fill{transition:none}}
 </style>
@@ -1414,9 +1417,8 @@ function castSpell(side,id,x,y){
     SFX.volley();
     for(let i=0;i<14;i++){const a=rnd(TAU),r=rnd(0,1)*CARDS.descarga.radius;
       const fx0=from.x+rnd(-24,24),fy0=from.y+(side==='p'?-4:4);
-      G.fx.push({type:'volley',x0:fx0,y0:fy0,x:x+Math.cos(a)*r,y:y+Math.sin(a)*r*.8,t:-i*.03,dur:.5})}
+      G.fx.push({type:'volley',x0:fx0,y0:fy0,x:x+Math.cos(a)*r,y:y+Math.sin(a)*r*.8,t:-i*.06,dur:.5,side,cx:x,cy:y,per:CARDS.descarga.dmg*sm/14})}
     G.fx.push({type:'ring',x,y,r:CARDS.descarga.radius,t:0,dur:.5,color:'rgba(240,230,210,'});
-    setTimeout(()=>{if(!G||G.phase==='over')return;areaDamage(side,x,y,CARDS.descarga.radius,CARDS.descarga.dmg*sm,.3)},880);
   }
   else if(id==='arenga'){
     SFX.charge();
@@ -1687,7 +1689,7 @@ function updateFx(dt){
         for(let i=0;i<14;i++)addPart(i%3?'dust':'fire',f.x+14+rnd(-10,10),f.y+rnd(-5,4),{vx:rnd(-24,24),vy:rnd(-22,0),life:rnd(.6,1.3),size:rnd(6,12),alpha:.75,grow:10});
         for(let i=0;i<8;i++)addPart('debris',f.x+14,f.y-2,{vx:rnd(-50,50),vy:rnd(-60,-15),life:.8,size:rnd(1,2),grav:150})}}
     if(f.type==='volley'&&f.t>=0&&!f.fired){f.fired=true;muzzle(f.x0,f.y0,f.y>f.y0?1:-1,false)}
-    if(f.type==='volley'&&f.t>=f.dur&&!f.hit){f.hit=true;addPart('dust',f.x,f.y,{vx:rnd(-8,8),vy:rnd(-8,0),life:.5,size:rnd(3,6),alpha:.6,grow:6})}
+    if(f.type==='volley'&&f.t>=f.dur&&!f.hit){f.hit=true;if(f.per&&G.phase!=='over')areaDamage(f.side,f.cx,f.cy,CARDS.descarga.radius,f.per,.3);addPart('dust',f.x,f.y,{vx:rnd(-8,8),vy:rnd(-8,0),life:.5,size:rnd(3,6),alpha:.6,grow:6})}
     if(f.type==='arenga'&&Math.random()<dt*10)addPart('heal',f.x+rnd(-f.r,f.r)*.8,f.y+rnd(-f.r,f.r)*.5,{vy:-12,life:1,size:rnd(3,6),alpha:.5})
   }
   G.fx=G.fx.filter(f=>f.t<f.dur+.05);
@@ -2403,9 +2405,18 @@ function goBack(){
   }
   return false;
 }
-try{const CapApp=window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins.App;
-  if(CapApp){CapApp.addListener('backButton',()=>{if(!goBack())CapApp.exitApp()});
-    CapApp.addListener('pause',()=>{SFX.suspend();pauseGame()});CapApp.addListener('resume',()=>{SFX.resume()})}}catch(e){}
+function capOn(ev,cb){const C=window.Capacitor;if(!C)return false;
+  try{if(C.Plugins&&C.Plugins.App&&C.Plugins.App.addListener){C.Plugins.App.addListener(ev,cb);return true}
+    if(C.addListener){C.addListener('App',ev,cb);return true}}catch(e){}return false}
+function capExit(){const C=window.Capacitor;try{if(C.Plugins&&C.Plugins.App&&C.Plugins.App.exitApp)C.Plugins.App.exitApp();else C.nativeCallback('App','exitApp',{})}catch(e){}}
+let exitArm=0;
+function onBack(){if(goBack())return;
+  // en el menú principal: tocá atrás dos veces para salir
+  const now=Date.now();if(now-exitArm<2000){capExit();return}exitArm=now;toast('Tocá atrás otra vez para salir')}
+function toast(t){let el=document.getElementById('toast');if(!el){el=document.createElement('div');el.id='toast';el.className='toast';document.body.appendChild(el)}
+  el.textContent=t;el.classList.add('on');clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('on'),1800)}
+if(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform()){
+  capOn('backButton',onBack);capOn('pause',()=>{SFX.suspend();pauseGame()});capOn('resume',()=>{SFX.resume()})}
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.hidden)goBack()});
 document.addEventListener('visibilitychange',()=>{if(document.hidden){SFX.suspend();pauseGame()}else SFX.resume()});
 
